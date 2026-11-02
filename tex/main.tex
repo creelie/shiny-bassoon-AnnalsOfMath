@@ -10,6 +10,7 @@
 \usepackage{caption}
 \captionsetup{font=small,labelfont=bf}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\hypersetup{pdftitle={Torsion D-Brane Charges from H-Flux on Calabi-Yau Threefolds},pdfauthor={Deep Bhattacharjee, Ushashi Bhattacharya}}
 \usepackage{doi}
 \emergencystretch=2em
 \raggedbottom
@@ -55,7 +56,7 @@
 \urladdr{https://orcid.org/0009-0002-2254-3914}
 
 \thanks{Corresponding author: Deep Bhattacharjee (\texttt{d.bhattacharjee@erl-forschung.de}); \texttt{egspl@proton.me} for matters concerning the code repository.}
-\thanks{The expository parts of Sections~\ref{sec:ktheory}, \ref{sec:twisted} and~\ref{sec:index} revise the treatment of D.~Bhattacharjee, S.\,S.~Roy, R.~Sadhu and A.\,K.~Behera, \emph{KK theory and K theory for Type II strings formalism}, Asian Res.\ J.\ Math.\ \textbf{19} (2023), no.~9, 79--94, \doi{10.9734/arjom/2023/v19i9701}, and correct several statements made there. Theorems~\ref{thm:six} and~\ref{thm:three} and Propositions~\ref{prop:surgery} and~\ref{prop:tdualcheck} do not appear in the literature known to us; the degeneration of the twisted spectral sequence on a simply connected six-manifold was observed by Collinucci and Evslin \cite{CE07}, and the untwisted groups of Calabi--Yau threefolds are due to Doran and Morgan \cite{DM07}.}
+\thanks{The expository parts of Sections~\ref{sec:ktheory}, \ref{sec:twisted} and~\ref{sec:index} revise the treatment of D.~Bhattacharjee, S.\,S.~Roy, R.~Sadhu and A.\,K.~Behera, \emph{KK theory and K theory for Type II strings formalism}, Asian Res.\ J.\ Math.\ \textbf{19} (2023), no.~9, 79--94, \doi{10.9734/arjom/2023/v19i9701}, and correct several statements made there. The main result, Theorem~\ref{thm:six}, gives an explicit presentation of the torsion and determines the even group as an abstract group by combining the twisted spectral sequence with twisted Poincar\'e duality and the universal coefficient theorem; the degeneration of the spectral sequence on a simply connected six-manifold was observed by Collinucci and Evslin \cite{CE07}, and the untwisted groups of Calabi--Yau threefolds are due to Doran and Morgan \cite{DM07}. The three-dimensional computation of Theorem~\ref{thm:three} and the circle bundles of Proposition~\ref{prop:tdualcheck} are consistency checks against established results: the circle-bundle groups and their exchange under T-duality are in Bouwknegt, Evslin and Mathai \cite[Section~4.2]{BEM04a}.}
 
 \subjclass[2020]{19L50, 55N15, 55T25, 57R65, 81T30}
 \keywords{Twisted K-theory, D-brane charge, Calabi--Yau threefold, T-duality}
@@ -108,14 +109,14 @@ K^{H,0}(M)\cong H^2(M;\ZZ),\qquad K^{H,1}(M)\cong H^1(M;\ZZ)\oplus\ZZ/k .
 \]
 \end{theorem}
 
-For $M=S^3$ this is the classical result $K^{H,0}(S^3)=0$, $K^{H,1}(S^3)=\ZZ/k$ behind the $\ZZ/k$-valued D0-charge of \cite{MMS01}. For circle bundles over a closed surface Theorem~\ref{thm:three} can be tested against T-duality: by Bouwknegt, Evslin and Mathai \cite{BEM04a,BEM04b} the circle bundle of Euler number $e$ with $k$ units of flux is T-dual to the circle bundle of Euler number $k$ with $e$ units of flux, and T-duality shifts the degree of twisted K-theory by one. Proposition~\ref{prop:tdualcheck} verifies that the groups of Theorem~\ref{thm:three} satisfy this exchange for every genus and every pair $(e,k)$, torsion included.
+For $M=S^3$ this is the classical result $K^{H,0}(S^3)=0$, $K^{H,1}(S^3)=\ZZ/k$ behind the $\ZZ/k$-valued D0-charge of \cite{MMS01}. For circle bundles over a closed surface Theorem~\ref{thm:three} can be tested against T-duality: by Bouwknegt, Evslin and Mathai \cite{BEM04a,BEM04b} the circle bundle of Euler number $e$ with $k$ units of flux is T-dual to the circle bundle of Euler number $k$ with $e$ units of flux, and T-duality shifts the degree of twisted K-theory by one. Proposition~\ref{prop:tdualcheck} verifies that the groups of Theorem~\ref{thm:three} satisfy this exchange for every genus and every pair $(e,k)$, torsion included; the four cases and their exchange are those of \cite[Section~4.2]{BEM04a}, so this is a check of Theorem~\ref{thm:three} against a known computation, not a new result.
 
 The remaining sections set up the K-theory, the twisted K-theory, the index theory and the Chern character needed for the statements above, in a form that corrects the earlier treatment cited in the title footnote: the definition of the odd K-group, the proof of Bott periodicity, the form of the Riemann--Roch formula for the push-forward, the data entering T-duality, and the integrality of Ramond--Ramond fields. Every finite computation in the paper (the groups of the examples, the Smith normal forms, the Riemann--Roch identities) is reproduced by a short Python script, see Appendix~\ref{app:code}.
 
 \section{K-theory and the Atiyah--Hirzebruch spectral sequence}\label{sec:ktheory}
 
 \subsection{K-groups}
-Let $X$ be a compact Hausdorff space. $K^0(X)$ is the Grothendieck group of the monoid of isomorphism classes of complex vector bundles on $X$ under direct sum; the rank gives a surjection $K^0(X)\to H^0(X;\ZZ)$ whose kernel is the reduced group $\widetilde K^0(X)$, and for connected $X$ one has $K^0(X)\cong\widetilde K^0(X)\oplus\ZZ$. For a pointed space the reduced groups are extended to negative degrees by suspension,
+Let $X$ be a compact Hausdorff space. $K^0(X)$ is the Grothendieck group of the monoid of isomorphism classes of complex vector bundles on $X$ under direct sum; for a pointed space $(X,x_0)$ the reduced group $\widetilde K^0(X)$ is the kernel of the restriction $K^0(X)\to K^0(x_0)=\ZZ$, and $K^0(X)\cong\widetilde K^0(X)\oplus\ZZ$. For connected $X$ the restriction to the base point is the rank, so $\widetilde K^0(X)$ is the kernel of the rank map $K^0(X)\to H^0(X;\ZZ)=\ZZ$; for a space with $c$ components the rank map has target $\ZZ^c$ and the two kernels differ, which is why the reduced group is defined through the base point. For a pointed space the reduced groups are extended to negative degrees by suspension,
 \begin{equation}\label{eq:K1}
 \widetilde K^{-n}(X)=\widetilde K^0(\Sigma^nX),\qquad K^{-n}(X)=\widetilde K^{-n}(X_+)=\widetilde K^0\bigl(\Sigma^n(X_+)\bigr),
 \end{equation}
@@ -141,12 +142,12 @@ where $\rho_2$ is reduction modulo $2$ and $\beta$ the Bockstein of $0\to\ZZ\to\
 The spectral sequence gives $K^*(X)$ only up to extensions: $K^n(X)$ carries the filtration $F^pK^n(X)=\ker\bigl(K^n(X)\to K^n(X^{(p-1)})\bigr)$ and $E_\infty^{p,n-p}=F^p/F^{p+1}$. When $E_\infty^{p,n-p}$ is free for all $p$ but the largest one, every extension splits and $K^n(X)\cong\bigoplus_pE_\infty^{p,n-p}$.
 
 \begin{example}\label{ex:even}
-If $H^*(X;\ZZ)$ is torsion-free and concentrated in even degrees then every differential has zero source or zero target, the filtration quotients are free, and $K^0(X)\cong\bigoplus_pH^{2p}(X;\ZZ)$, $K^1(X)=0$. This covers $S^{2j}$, $\CC P^n$ and K3 surfaces, whose cohomology is torsion-free and sits in degrees $0$, $2$, $4$ with ranks $1$, $22$, $1$ \cite{BRB22,BN26}: $K^0(K3)\cong\ZZ^{24}$ and $K^1(K3)=0$. For a torus the K\"unneth theorem gives $K^*(T^n)$ as the exterior algebra on $n$ odd generators, so $K^0(T^n)\cong K^1(T^n)\cong\ZZ^{2^{n-1}}$. For a Calabi--Yau threefold with torsion-free cohomology the untwisted groups are $K^0\cong\ZZ^{2+2h^{1,1}}$ and $K^1\cong\ZZ^{2+2h^{2,1}}$, see Proposition~\ref{prop:untwistedsix}. Table~\ref{tab:kgroups} collects these.
+If $H^*(X;\ZZ)$ is torsion-free and concentrated in even degrees then every differential has zero source or zero target, the filtration quotients are free, and $K^0(X)\cong\bigoplus_pH^{2p}(X;\ZZ)$, $K^1(X)=0$. This covers $S^{2j}$, $\CC P^n$ and K3 surfaces, whose cohomology is torsion-free and sits in degrees $0$, $2$, $4$ with ranks $1$, $22$, $1$ \cite[Chapter~VIII]{BHPV04} (for the involutions of K3 surfaces and their Enriques and Kummer quotients see also \cite{BRB22,BN26}): $K^0(K3)\cong\ZZ^{24}$ and $K^1(K3)=0$. For a torus the K\"unneth theorem gives $K^*(T^n)$ as the exterior algebra on $n$ odd generators, so $K^0(T^n)\cong K^1(T^n)\cong\ZZ^{2^{n-1}}$. For a Calabi--Yau threefold with torsion-free cohomology the untwisted groups are $K^0\cong\ZZ^{2+2h^{1,1}}$ and $K^1\cong\ZZ^{2+2h^{2,1}}$, see Proposition~\ref{prop:untwistedsix}. Table~\ref{tab:kgroups} collects these.
 \end{example}
 
 \begin{table}[ht]
 \centering
-\caption{Untwisted K-groups of some compactification spaces (Example~\ref{ex:even}; the Calabi--Yau line assumes torsion-free cohomology). In the convention in which a brane extended along the noncompact spacetime and wrapping $W\subset X$ has the charge $\iota_!E\in K^*(X)$ of Section~\ref{sec:index}, Type IIA branes wrap even-dimensional cycles of $X$ and their charges lie in $K^0(X)$, Type IIB branes wrap odd-dimensional cycles and their charges lie in $K^1(X)$ \cite{Wit98}.}
+\caption{Untwisted K-groups of some compactification spaces (Example~\ref{ex:even}; the Calabi--Yau line assumes torsion-free cohomology). The convention is that of particle charges in $\RR^{1,3}\times X$: a brane extended along the time direction only and wrapping $W\subset X$ has the charge $\iota_!E\in K^*(X)$ of Section~\ref{sec:index}; then Type IIA branes wrap even-dimensional cycles of $X$ and their charges lie in $K^0(X)$, Type IIB branes wrap odd-dimensional cycles and their charges lie in $K^1(X)$ \cite{Wit98}. For a brane filling $\RR^{1,3}$ the internal cycle has dimension $p-3$ and the parities are reversed.}
 \label{tab:kgroups}
 \begin{tabular}{lccc}
 \toprule
@@ -164,12 +165,12 @@ Calabi--Yau threefold & 6 & $\ZZ^{2+2h^{1,1}}$ & $\ZZ^{2+2h^{2,1}}$\\
 \end{table}
 
 \subsection{Kasparov's bivariant theory}
-For separable $C^*$-algebras $A$ and $B$, Kasparov's group $\KK(A,B)=\KK_0(A,B)$ \cite{Kas81} is the set of homotopy classes of triples $(E,\phi,F)$ with $E$ a countably generated $\ZZ/2$-graded Hilbert $B$-module, $\phi\colon A\to\mathcal L(E)$ a $*$-homomorphism by even operators and $F\in\mathcal L(E)$ a bounded odd operator with $\phi(a)(F^2-1)$, $\phi(a)(F-F^*)$ and $[\phi(a),F]$ compact for all $a\in A$, so that $F$ is Fredholm modulo the compact operators on the support of $\phi$. The Kasparov product $\KK(A,B)\times\KK(B,C)\to\KK(A,C)$ makes these groups the morphisms of an additive category, and $K_0(B)=\KK(\CC,B)$, $K_1(B)=\KK(\CC,B\otimes C_0(\RR))$. For $B=C(X)$ this is $K^0(X)$ and $K^1(X)$. A brane--antibrane pair with Chan--Paton bundles $E_1,E_2$ and tachyon $T\colon E_1\to E_2$ defines the Kasparov module $(E_1\oplus E_2,\,\phi,\,\bigl(\begin{smallmatrix}0&T^*\\T&0\end{smallmatrix}\bigr))$ over $C(X)$, with $E_1$ in even and $E_2$ in odd degree, $\phi$ the multiplication by functions and the operator normalised so that $T^*T-1$ is compact wherever $T$ is invertible up to compacts; its class is the K-theory class $[E_1]-[E_2]$; this is the K-theoretic form of Sen's descent relations \cite{Sen98,Wit98}.
+For separable $C^*$-algebras $A$ and $B$, Kasparov's group $\KK(A,B)=\KK_0(A,B)$ \cite{Kas81} is the set of homotopy classes of triples $(E,\phi,F)$ with $E$ a countably generated $\ZZ/2$-graded Hilbert $B$-module, $\phi\colon A\to\mathcal L(E)$ a $*$-homomorphism by even operators and $F\in\mathcal L(E)$ a bounded odd operator with $\phi(a)(F^2-1)$, $\phi(a)(F-F^*)$ and $[\phi(a),F]$ compact for all $a\in A$, so that $F$ is Fredholm modulo the compact operators on the support of $\phi$. The Kasparov product $\KK(A,B)\times\KK(B,C)\to\KK(A,C)$ makes these groups the morphisms of an additive category, and $K_0(B)=\KK(\CC,B)$, $K_1(B)=\KK(\CC,B\otimes C_0(\RR))$. For $B=C(X)$ this is $K^0(X)$ and $K^1(X)$. A brane--antibrane pair with Chan--Paton bundles $E_1,E_2$ and tachyon $T\colon E_1\to E_2$ defines the Kasparov module $(\Gamma(E_1)\oplus\Gamma(E_2),\,\phi,\,\bigl(\begin{smallmatrix}0&T^*\\T&0\end{smallmatrix}\bigr))$ with $A=\CC$ and $B=C(X)$: the sections form a Hilbert $C(X)$-module, $\Gamma(E_1)$ in even and $\Gamma(E_2)$ in odd degree, $\phi(\lambda)$ is the scalar multiplication by $\lambda\in\CC$, and the operator is bounded and odd, with $T^*T-1$ and $TT^*-1$ compact wherever $T$ is invertible up to compacts, so the triple is a cycle for $\KK(\CC,C(X))=K^0(X)$ and its class is $[E_1]-[E_2]$. If instead $\phi$ is taken to be the multiplication by functions, the same triple is a cycle for $\KK(C(X),C(X))$, which is a different group in general ($\KK(C(S^1),C(S^1))\cong\ZZ^2$ while $K^0(S^1)\cong\ZZ$); the charge class is recovered from it by restricting the first argument along the unit $\CC\to C(X)$. This is the K-theoretic form of Sen's descent relations and of the brane--antibrane tachyon condensation \cite{Sen98,Sen98b,Wit98}.
 
 \section{Twisted K-theory}\label{sec:twisted}
 
 \subsection{Definition}
-Let $X$ be a compact space and $H\in H^3(X;\ZZ)$. Since $H^3(X;\ZZ)=[X,K(\ZZ,3)]=[X,B\,PU(\mathcal H)]$ for a separable infinite-dimensional Hilbert space $\mathcal H$, the class $H$ determines, up to isomorphism, a locally trivial bundle $\mathcal K_H\to X$ with fibre the compact operators $\mathcal K(\mathcal H)$ and structure group $PU(\mathcal H)$. Its algebra of sections $A_H=\Gamma(X,\mathcal K_H)$ is a continuous-trace $C^*$-algebra with spectrum $X$ and Dixmier--Douady class $H$ \cite{Ros89}, and
+Let $X$ be a finite CW complex, for instance a compact manifold, and $H\in H^3(X;\ZZ)$. Since $H^3(X;\ZZ)=[X,K(\ZZ,3)]=[X,B\,PU(\mathcal H)]$ for a separable infinite-dimensional Hilbert space $\mathcal H$, the class $H$ determines, up to isomorphism, a locally trivial bundle $\mathcal K_H\to X$ with fibre the compact operators $\mathcal K(\mathcal H)$ and structure group $PU(\mathcal H)$. Its algebra of sections $A_H=\Gamma(X,\mathcal K_H)$ is a continuous-trace $C^*$-algebra with spectrum $X$ and Dixmier--Douady class $H$ \cite{Ros89}, and
 \begin{equation}\label{eq:twistedK}
 K^{H,n}(X):=K_{-n}(A_H),\qquad n\in\ZZ/2 .
 \end{equation}
@@ -185,7 +186,7 @@ d_3=\Sq^3_\ZZ-H\cup(-)\colon H^p(X;\ZZ)\longrightarrow H^{p+3}(X;\ZZ).
 \]
 \end{theorem}
 
-The sign of the second term depends on conventions and plays no role in what follows. Rationally the higher differentials are expressed through Massey products with $H$ \cite{AS06}; they are not primary operations and there is no universal formula of the form ``$d_5=$ a Steenrod operation twisted by $H$''. In the two situations treated in this paper the higher differentials vanish because their sources or targets are zero, and Theorem~\ref{thm:twistedd3} determines the groups completely.
+The sign of the second term depends on conventions and plays no role in what follows. Rationally the higher differentials are expressed through Massey products with $H$ \cite{AS06}; they are not primary operations and there is no universal formula of the form ``$d_5=$ a Steenrod operation twisted by $H$''. In the two situations treated in this paper the higher differentials vanish because their sources or targets are zero, so Theorem~\ref{thm:twistedd3} determines the associated graded groups; the extension and duality arguments of Sections~\ref{sec:six} and~\ref{sec:three} then determine the abstract groups.
 
 \begin{figure}[ht]
 \centering
@@ -326,7 +327,7 @@ For a torsion twist, $H\in T$, the group is simply $C_H=T/\langle H\rangle$, and
 
 \subsection{Spin six-manifolds on which the torsion of the flux matters}
 \begin{proposition}\label{prop:surgery}
-For every $n\ge1$ there is a closed simply connected spin six-manifold $M_n$ with $H_2(M_n;\ZZ)\cong H_3(M_n;\ZZ)\cong\ZZ/n$ and all other reduced integral homology zero. The manifold $X_n=M_n\mathbin\#(S^3\times S^3)$ is closed, simply connected and spin, with $b_2(X_n)=0$, $b_3(X_n)=2$ and
+For every $n\ge1$ there is a closed simply connected spin six-manifold $M_n$ with $H_0(M_n;\ZZ)\cong H_6(M_n;\ZZ)\cong\ZZ$, $H_2(M_n;\ZZ)\cong H_3(M_n;\ZZ)\cong\ZZ/n$ and $H_i(M_n;\ZZ)=0$ for $i=1,4,5$. The manifold $X_n=M_n\mathbin\#(S^3\times S^3)$ is closed, simply connected and spin, with $b_2(X_n)=0$, $b_3(X_n)=2$ and
 \[
 H^3(X_n;\ZZ)\cong\ZZ a\oplus\ZZ b\oplus\ZZ/n\,c,\qquad\langle a\cup b,[X_n]\rangle=1 .
 \]
@@ -373,9 +374,9 @@ Theorem~\ref{thm:six} determines $K^{H,*}(X)$ as abstract groups. It does not de
 \end{remark}
 
 \subsection{The D-brane reading}\label{ssec:branes}
-Let $X$ be a Calabi--Yau threefold as in Corollary~\ref{cor:cy}, with torsion-free cohomology and $H=mH_0$, and use the convention of Table~\ref{tab:kgroups}: a brane extended along the noncompact spacetime and wrapping a cycle $W\subset X$ with Chan--Paton bundle $E$ has the charge $\iota_!E$ of Section~\ref{sec:index}. In Type IIA the branes wrap even-dimensional cycles and their charges lie in $K^{H,0}(X)$. The flux removes the classes of $H^0$ and $H^6$, the charges of a D6-brane filling $X$ and of a D0-brane, and leaves a D0-charge of order $m$: the point class generates $E_\infty^6=H^6/mH^6$, so the class of a single D0-brane has order $m$, nonzero when $m>1$, and the class of $m$ D0-branes vanishes. For $X=S^3$ with $k$ units of flux this is the $\ZZ/k$ of \cite{MMS01} in its original setting. The D2- and D4-charges in $H^2\oplus H^4$ are not affected. These are statements about the charge group; they say nothing about the existence of stable branes representing a given class or about a dynamical process by which $m$ D0-branes disappear.
+Let $X$ be a Calabi--Yau threefold as in Corollary~\ref{cor:cy}, with torsion-free cohomology and $H=mH_0$, and use the convention of Table~\ref{tab:kgroups}: the charges are those of particles in $\RR^{1,3}$, so a brane extended along time only and wrapping a cycle $W\subset X$ with Chan--Paton bundle $E$ has the charge $\iota_!E$ of Section~\ref{sec:index}. In Type IIA the branes wrap even-dimensional cycles and their charges lie in $K^{H,0}(X)$. The flux removes the classes of $H^0$ and $H^6$, the charges of a D6-brane filling $X$ and of a D0-brane, and leaves a D0-charge of order $m$: the point class generates $E_\infty^6=H^6/mH^6$, so the class of a single D0-brane has order $m$, nonzero when $m>1$, and the class of $m$ D0-branes vanishes. For $X=S^3$ with $k$ units of flux this is the $\ZZ/k$ of \cite{MMS01} in its original setting. The D2- and D4-charges in $H^2\oplus H^4$ are not affected. These are statements about the charge group; they say nothing about the existence of stable branes representing a given class or about a dynamical process by which $m$ D0-branes disappear.
 
-In Type IIB the D3-branes wrap three-cycles $W\subset X$, and the Freed--Witten condition \cite{FW99} for a brane on $W$ in the flux $H$ is $W_3(TW)+H|_W=0$ in $H^3(W;\ZZ)$ (for the spacetime $\RR^{1,3}\times X$, which is spin). A closed oriented three-manifold $W$ is spin, so $W_3(TW)=0$ and the condition is $H|_W=0$, that is $\int_WH=\omega(H,[W]^\vee)=0$. These are exactly the classes of $H_0^\perp$, and $K^{H,1}(X)=H_0^\perp/\ZZ H$ records in addition that the class of $m$ copies of the D3-brane on the cycle dual to $H_0$ vanishes while the class of a single copy has order $m$. The D-instanton and the D5-brane filling $X$ have no classes to wrap in degree $3$; this is consistent, since both would need the lost classes of $H^0$ and $H^6$ in a Type IIA frame reached by T-duality.
+In Type IIB the D3-branes wrap three-cycles $W\subset X$, and the Freed--Witten condition \cite{FW99} for a brane on $W$ in the flux $H$ is $W_3(TW)+H|_W=0$ in $H^3(W;\ZZ)$ (for the spacetime $\RR^{1,3}\times X$, which is spin). A closed oriented three-manifold $W$ is spin, so $W_3(TW)=0$ and the condition is $H|_W=0$, that is $\int_WH=\omega(H,[W]^\vee)=0$. These are exactly the classes of $H_0^\perp$, and $K^{H,1}(X)=H_0^\perp/\ZZ H$ records in addition that the class of $m$ copies of the D3-brane on the cycle dual to $H_0$ vanishes while the class of a single copy has order $m$.
 
 \section{Three-manifolds and T-duality}\label{sec:three}
 
@@ -410,7 +411,7 @@ c_1(\widehat X)=\pi_*H\in H^2(B;\ZZ),\qquad\widehat\pi_*\widehat H=F,
 and the two fluxes agree on the correspondence space $X\times_B\widehat X$ after pull-back; such $\widehat H$ exists and is unique up to the ambiguity inherent in \eqref{eq:tdualdata}.
 
 \begin{theorem}[Bouwknegt--Evslin--Mathai \cite{BEM04a,BEM04b}]\label{thm:bem}
-With the notation above there is an isomorphism $K^{H,n}(X)\cong K^{\widehat H,n+1}(\widehat X)$, given by pulling back to the correspondence space $X\times_B\widehat X$, on which the pull-backs of the two twists are isomorphic, composing with a chosen isomorphism between them (in the untwisted case this is the multiplication by the Poincar\'e line bundle), and pushing forward along the circle bundle $\widehat\pi$, which is K-oriented; the same holds for the twisted cohomology. The choice of isomorphism is part of the T-duality data.
+With the notation above there is an isomorphism $K^{H,n}(X)\cong K^{\widehat H,n+1}(\widehat X)$, given by pulling back along the projection $p\colon X\times_B\widehat X\to X$ to the correspondence space, on which the pull-backs of the two twists are isomorphic, composing with an isomorphism between them whose restriction to each fibre $S^1\times S^1$ of the correspondence space over $B$ is the Poincar\'e normalisation (in the untwisted case this is the multiplication by the Poincar\'e line bundle), and pushing forward along the projection $\widehat p\colon X\times_B\widehat X\to\widehat X$, which is a circle bundle and K-oriented; the same holds for the twisted cohomology. The normalisation is necessary: for $X=\widehat X=S^1$ over a point without flux the correspondence space is $T^2$, and the transform with the identity in place of the Poincar\'e line bundle sends $1\in K^0(S^1)$ to $\widehat p_!p^*1$, which is the pull-back of the push-forward of $1$ to $K^{-1}(\mathrm{pt})=0$. The twist isomorphism with this normalisation is part of the T-duality data.
 \end{theorem}
 
 The flux data in \eqref{eq:tdualdata} are essential. For the Hopf bundle $S^3\to S^2$ with $F$ the generator and $H=0$ the dual bundle is trivial, $\widehat X=S^2\times S^1$, with $\widehat H$ the generator of $H^3(S^2\times S^1;\ZZ)$. Then $K^0(S^3)\cong\ZZ$ matches $K^{\widehat H,1}(S^2\times S^1)\cong\ZZ$ by Theorem~\ref{thm:three} with $b_1=1$, $k=1$, whereas the untwisted group $K^1(S^2\times S^1)\cong\ZZ^2$ does not; a statement that T-duality exchanges the untwisted groups $K^0(X)$ and $K^1(\widehat X)$ for every circle bundle is false. At the level of $C^*$-algebras, the continuous-trace algebra of $(\widehat X,\widehat H)$ is the crossed product of that of $(X,H)$ by an action of $\RR$ lifting the circle action, and the isomorphism of Theorem~\ref{thm:bem} is Connes' Thom isomorphism, which is implemented by an invertible $\KK$-element \cite{MR05}; for torus bundles the dual is in general a bundle of noncommutative tori \cite{BHM04,MR05}.
@@ -487,7 +488,7 @@ for a bundle of rank $r$ with Chern classes $c_i$. The torsion of $K^*(X)$ is in
 \begin{equation}\label{eq:rr}
 G(x)=\ch(x)\,\sqrt{\Ahat(X)}\in H^*(X;\QQ)
 \end{equation}
-\cite{MM97,FH00}; with a B-field, a two-form potential whose curvature three-form represents the class $H$, the Chern character is replaced by the twisted Chern character of $K^{H,*}(X)$ \cite{BM00}; the differential refinement of this picture, with the torsion and the holonomies of the fields and with Calabi--Yau threefolds among the examples, is developed by Grady and Sati \cite{GS22}. The components of $G(x)$ are not integral classes in general: for $x=[\mathcal O(1)]$ on $\CC P^2$ one has $\sqrt{\Ahat}=1-\tfrac1{16}h^2$ and $G(x)=1+h+\tfrac7{16}h^2$. The quantization statement is therefore not that $[G]$ is integral but that $G$ lies in the image of $K^*(X)$ under \eqref{eq:rr}, which is a lattice of full rank in $H^*(X;\QQ)$ different from $H^*(X;\ZZ)$ \cite{FH00}.
+\cite{MM97,FH00}; with a B-field, that is, a connection on the gerbe with Dixmier--Douady class $H$, given by local two-form potentials whose curvature is a global three-form representing the image of $H$ in real cohomology (for $H$ of infinite order there is no global two-form $B$ with $dB=H$, and a torsion twist carries flat data invisible to the curvature), the Chern character is replaced by the twisted Chern character of $K^{H,*}(X)$ \cite{BM00}; the differential refinement of this picture, with the torsion and the holonomies of the fields and with Calabi--Yau threefolds among the examples, is developed by Grady and Sati \cite{GS22}. The components of $G(x)$ are not integral classes in general: for $x=[\mathcal O(1)]$ on $\CC P^2$ one has $\sqrt{\Ahat}=1-\tfrac1{16}h^2$ and $G(x)=1+h+\tfrac7{16}h^2$. The quantization statement is therefore not that $[G]$ is integral but that $G$ lies in the image of $K^*(X)$ under \eqref{eq:rr}, which is a lattice of full rank in $H^*(X;\QQ)$ different from $H^*(X;\ZZ)$ \cite{FH00}.
 
 \subsection{Torsion charges without flux}
 Torsion in $K^*(X)$ also arises without flux. The simplest examples are in Type I, where the charges lie in real K-theory and $\widetilde{KO}(S^{9-p})=KO^{-(9-p)}(\mathrm{pt})$ is $\ZZ/2$ for $p=-1,0,7,8$ \cite{Wit98}; the non-BPS D0-brane of Type I with its $\ZZ/2$ charge is the standard example \cite{Sen98,Wit98}. In Type IIB on a flat space $\RR^8\times S^1$ there is no torsion charge, since $K^1(S^1)\cong\ZZ$ is torsion-free; torsion charges in Type II require either flux, as in Theorems~\ref{thm:six} and~\ref{thm:three}, or torsion in the cohomology of $X$, as for the lens spaces of Table~\ref{tab:three}.
@@ -560,6 +561,12 @@ D.~Bhattacharjee and P.~Nandi,
 \emph{Enriques and Kummer surfaces arising from K3 involutions},
 Preprints.org (2026).
 \doi{10.20944/preprints202602.0098.v1}
+
+\bibitem{BHPV04}
+W.\,P.~Barth, K.~Hulek, C.\,A.\,M.~Peters and A.~Van de Ven,
+\emph{Compact complex surfaces}, 2nd ed.,
+Ergeb.\ Math.\ Grenzgeb.\ (3), vol.~4, Springer, Berlin, 2004.
+\doi{10.1007/978-3-642-57739-0}
 
 \bibitem{BM00}
 P.~Bouwknegt and V.~Mathai,
@@ -668,6 +675,12 @@ A.~Sen,
 \emph{Stable non-BPS states in string theory},
 J.\ High Energy Phys.\ \textbf{06} (1998), 007.
 \doi{10.1088/1126-6708/1998/06/007}
+
+\bibitem{Sen98b}
+A.~Sen,
+\emph{Tachyon condensation on the brane antibrane system},
+J.\ High Energy Phys.\ \textbf{08} (1998), 012.
+\doi{10.1088/1126-6708/1998/08/012}
 
 \bibitem{Tu09}
 J.-L.~Tu,
