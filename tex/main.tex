@@ -36,6 +36,9 @@
 \newcommand{\Zm}{\ZZ/m}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ext}{Ext}
 
 \title[Torsion D-brane charges from $H$-flux]{Torsion D-Brane Charges from $H$-Flux on Calabi--Yau Threefolds}
 
@@ -52,15 +55,15 @@
 \urladdr{https://orcid.org/0009-0002-2254-3914}
 
 \thanks{Corresponding author: Deep Bhattacharjee (\texttt{d.bhattacharjee@erl-forschung.de}); \texttt{egspl@proton.me} for matters concerning the code repository.}
-\thanks{The expository parts of Sections~\ref{sec:ktheory}, \ref{sec:twisted} and~\ref{sec:index} revise the treatment of D.~Bhattacharjee, S.\,S.~Roy, R.~Sadhu and A.\,K.~Behera, \emph{KK theory and K theory for Type II strings formalism}, Asian Res.\ J.\ Math.\ \textbf{19} (2023), no.~9, 79--94, \doi{10.9734/arjom/2023/v19i9701}, and correct several statements made there. Theorems~\ref{thm:six} and~\ref{thm:three} and Proposition~\ref{prop:tdualcheck} are new.}
+\thanks{The expository parts of Sections~\ref{sec:ktheory}, \ref{sec:twisted} and~\ref{sec:index} revise the treatment of D.~Bhattacharjee, S.\,S.~Roy, R.~Sadhu and A.\,K.~Behera, \emph{KK theory and K theory for Type II strings formalism}, Asian Res.\ J.\ Math.\ \textbf{19} (2023), no.~9, 79--94, \doi{10.9734/arjom/2023/v19i9701}, and correct several statements made there. Theorems~\ref{thm:six} and~\ref{thm:three} and Propositions~\ref{prop:surgery} and~\ref{prop:tdualcheck} do not appear in the literature known to us; the degeneration of the twisted spectral sequence on a simply connected six-manifold was observed by Collinucci and Evslin \cite{CE07}, and the untwisted groups of Calabi--Yau threefolds are due to Doran and Morgan \cite{DM07}.}
 
-\subjclass[2020]{19L50, 55N15, 55T25, 81T30}
+\subjclass[2020]{19L50, 55N15, 55T25, 57R65, 81T30}
 \keywords{Twisted K-theory, D-brane charge, Calabi--Yau threefold, T-duality}
 
 \begin{document}
 
 \begin{abstract}
-Let $X$ be a simply connected closed six-manifold with torsion-free integral cohomology, for instance a Calabi--Yau threefold, and let $H\in H^3(X;\ZZ)$ be $m$ times a primitive class, $m\ge 1$. We prove $K^{H,0}(X)\cong\ZZ^{2b_2}\oplus\ZZ/m$ and $K^{H,1}(X)\cong\ZZ^{b_3-2}\oplus\ZZ/m$. The same method gives the twisted K-groups of every closed oriented three-manifold, and these are checked against T-duality for circle bundles over surfaces.
+Let $X$ be a connected closed spin$^c$ six-manifold with $H_1(X;\ZZ)=0$, for instance a simply connected Calabi--Yau threefold, and let $H\in H^3(X;\ZZ)$. We determine the twisted K-groups $K^{H,*}(X)$ as abstract groups: their torsion is the finite group $\Tor(H^3(X;\ZZ)/\ZZ H)$ in odd degree and its character group in even degree, and the ranks are $b_3-2$ and $2b_2$ for a flux of infinite order. When the cohomology is torsion-free and $H$ is $m$ times a primitive class this reads $K^{H,0}\cong\ZZ^{2b_2}\oplus\ZZ/m$, $K^{H,1}\cong\ZZ^{b_3-2}\oplus\ZZ/m$. When $H^3$ has torsion the torsion component of the flux changes the invariant factors, and we construct spin six-manifolds on which this happens. The same method gives the twisted K-groups of every closed oriented three-manifold, which are checked against T-duality for circle bundles over surfaces.
 \end{abstract}
 
 \maketitle
@@ -70,25 +73,36 @@ Let $X$ be a simply connected closed six-manifold with torsion-free integral coh
 Ramond--Ramond charges of D-branes in Type II string theory on a compact space $X$ are classified by the topological K-theory of $X$ \cite{MM97,Wit98}, and in the presence of a Neveu--Schwarz three-form flux with integral class $H\in H^3(X;\ZZ)$ by the twisted K-theory $K^{H,*}(X)$ \cite{Wit98,BM00,Kap00}. The twisted groups are rarely written down for the spaces that matter most in compactification, the Calabi--Yau threefolds. This paper computes them.
 
 \begin{theorem}\label{thm:six}
-Let $X$ be a simply connected closed oriented six-manifold whose integral cohomology is torsion-free, with Betti numbers $b_2=b_4$ and $b_3$. Let $H\in H^3(X;\ZZ)$ be nonzero and write $H=mH_0$ with $H_0$ primitive and $m\ge1$. Then
+Let $X$ be a connected closed spin$^c$ six-manifold with $H_1(X;\ZZ)=0$ and Betti numbers $b_2=b_4$ and $b_3$, and let $H\in H^3(X;\ZZ)$. Put
+\[
+C_H=\Tor\bigl(H^3(X;\ZZ)/\ZZ H\bigr),\qquad C_H^\vee=\Hom(C_H,\QQ/\ZZ),
+\]
+and $\delta_H=1$ if $H$ has infinite order, $\delta_H=0$ if $H$ is torsion (including $H=0$).
+Then, as abstract abelian groups,
+\[
+K^{H,0}(X)\;\cong\;\ZZ^{2+2b_2-2\delta_H}\oplus C_H^\vee,\qquad
+K^{H,1}(X)\;\cong\;\ZZ^{b_3-2\delta_H}\oplus C_H ,
+\]
+and more precisely $K^{H,1}(X)\cong\ker\bigl(H\cup(-)\colon H^3(X;\ZZ)\to H^6(X;\ZZ)\bigr)/\ZZ H$. If $H^*(X;\ZZ)$ is torsion-free and $H=mH_0\neq0$ with $H_0$ primitive and $m\ge1$, then $C_H\cong\ZZ/m$,
 \[
 K^{H,0}(X)\;\cong\;\ZZ^{2b_2}\oplus\ZZ/m,\qquad
-K^{H,1}(X)\;\cong\;\ZZ^{b_3-2}\oplus\ZZ/m .
+K^{H,1}(X)\;\cong\;\ZZ^{b_3-2}\oplus\ZZ/m ,
 \]
-More precisely $K^{H,0}(X)\cong H^2(X;\ZZ)\oplus H^4(X;\ZZ)\oplus H^6(X;\ZZ)/mH^6(X;\ZZ)$, and $K^{H,1}(X)\cong H_0^{\perp}/\ZZ H$, where $H_0^\perp\subset H^3(X;\ZZ)$ is the kernel of $y\mapsto\langle H_0\cup y,[X]\rangle$.
+and $K^{H,0}(X)\cong H^2(X;\ZZ)\oplus H^4(X;\ZZ)\oplus H^6(X;\ZZ)/mH^6(X;\ZZ)$, $K^{H,1}(X)\cong H_0^{\perp}/\ZZ H$, where $H_0^\perp\subset H^3(X;\ZZ)$ is the kernel of $y\mapsto\langle H_0\cup y,[X]\rangle$; in this case the spin$^c$ hypothesis is not needed.
 \end{theorem}
 
-For $H=0$ the untwisted groups are $K^0(X)\cong\ZZ^{2+2b_2}$ and $K^1(X)\cong\ZZ^{b_3}$. Switching on a flux of divisibility $m$ therefore removes two free generators from each parity and replaces them by a cyclic group of order $m$ in each parity. In Type IIA the two lost even classes are the point class and the fundamental class, the charges of a D0-brane and of a D6-brane filling $X$; the D0-brane survives as a charge of order $m$. In Type IIB the lost odd classes are $H$ itself and a class dual to it; the D3-branes that survive are those wrapping three-cycles $W$ with $\int_W H=0$, which is the Freed--Witten condition \cite{FW99}, and the D3-brane on the cycle Poincar\'e dual to $H_0$ carries a charge of order $m$. Every Calabi--Yau threefold with torsion-free cohomology satisfies the hypotheses, so the theorem gives, for the quintic threefold with $b_2=1$, $b_3=204$,
+For $H=0$ the untwisted groups are $K^0(X)\cong\ZZ^{2+2b_2}\oplus T^\vee$ and $K^1(X)\cong\ZZ^{b_3}\oplus T$ with $T=\Tor H^3(X;\ZZ)$, which for a Calabi--Yau threefold agrees with Doran and Morgan \cite{DM07}. In the torsion-free case, switching on a flux of divisibility $m$ removes two free generators from each parity and replaces them by a cyclic group of order $m$ in each parity. In Type IIA the two lost even classes are the point class and the fundamental class, the charges of a D0-brane and of a D6-brane filling $X$; the D0-brane survives as a charge of order $m$. In Type IIB the lost odd classes are $H$ itself and a class dual to it; the D3-branes that survive are those wrapping three-cycles $W$ with $\int_W H=0$, which is the Freed--Witten condition \cite{FW99}, and the D3-brane on the cycle Poincar\'e dual to $H_0$ carries a charge of order $m$. Every simply connected Calabi--Yau threefold with torsion-free cohomology satisfies the hypotheses, so the theorem gives, for the quintic threefold with $b_2=1$, $b_3=204$,
 \[
 K^{H,0}\cong\ZZ^2\oplus\ZZ/m,\qquad K^{H,1}\cong\ZZ^{202}\oplus\ZZ/m .
 \]
+When $H^3(X;\ZZ)$ has torsion the group $C_H$ depends on more than the divisibility of the free part of $H$: on the spin six-manifolds $X_n$ of Proposition~\ref{prop:surgery}, with $H^3(X_n;\ZZ)\cong\ZZ^2\oplus\ZZ/n$, the two fluxes $2a$ and $2a+c$ ($a$ primitive, $c$ of order $2$, $n=2$) give $C_H\cong\ZZ/2\oplus\ZZ/2$ and $C_H\cong\ZZ/4$ respectively (Corollary~\ref{cor:realized}).
 
-The proof uses the Atiyah--Hirzebruch spectral sequence of twisted K-theory, whose first differential is $d_3=\Sq^3_\ZZ-H\cup(-)$ by the theorem of Atiyah and Segal \cite{AS06}; the point is that on a simply connected six-manifold with torsion-free cohomology every other differential vanishes for reasons of degree, the integral Steenrod operation $\Sq^3_\ZZ$ contributes nothing, and all extension problems split. The torsion is produced by the cup product with $H$ on $H^3$, which through Poincar\'e duality is a unimodular alternating form, and a short lattice argument (Lemma~\ref{lem:lattice}) identifies its cokernel and the quotient of its kernel.
+The proof uses the Atiyah--Hirzebruch spectral sequence of twisted K-theory, whose first differential is $d_3=\Sq^3_\ZZ-H\cup(-)$ by the theorem of Atiyah and Segal \cite{AS06}. On a six-manifold with $H_1=0$ every other differential vanishes for reasons of degree and the integral Steenrod operation $\Sq^3_\ZZ$ contributes nothing, as Collinucci and Evslin observed \cite{CE07}; the torsion is produced by the cup product with $H$ on $H^3$, which through Poincar\'e duality is a unimodular alternating form on the free part of $H^3$, and a lattice argument (Lemma~\ref{lem:lattice}) identifies its cokernel and the quotient of its kernel. The odd group has a single filtration quotient and is read off directly. The even group is an iterated extension which need not split when $H^3$ has torsion; we do not resolve the extension but determine the group by Poincar\'e duality in twisted K-theory (Tu \cite{Tu09}) and the universal coefficient theorem of Rosenberg and Schochet \cite{RS87}, which identify its torsion with the character group of the torsion of the odd group for the opposite twist.
 
 The same argument applies to three-manifolds, where the cup product with $H$ only acts on $H^0$.
 
 \begin{theorem}\label{thm:three}
-Let $M$ be a closed oriented three-manifold and let $H=k\,[M]^\vee\in H^3(M;\ZZ)\cong\ZZ$ with $k\neq0$. Then
+Let $M$ be a connected closed oriented three-manifold and let $H=k\,[M]^\vee\in H^3(M;\ZZ)\cong\ZZ$ with $k\neq0$. Then
 \[
 K^{H,0}(M)\cong H^2(M;\ZZ),\qquad K^{H,1}(M)\cong H^1(M;\ZZ)\oplus\ZZ/k .
 \]
@@ -122,7 +136,7 @@ The differentials $d_r$ have bidegree $(r,1-r)$ and vanish for even $r$. The fir
 \begin{equation}\label{eq:d3}
 d_3=\Sq^3_\ZZ=\beta\circ\Sq^2\circ\rho_2\colon H^p(X;\ZZ)\longrightarrow H^{p+3}(X;\ZZ),
 \end{equation}
-where $\rho_2$ is reduction modulo $2$ and $\beta$ the Bockstein of $0\to\ZZ\to\ZZ\to\ZZ/2\to0$; this is due to Atiyah and Hirzebruch \cite{AH61}. Two consequences are used below: $\Sq^3_\ZZ$ vanishes on $H^0$ and on $H^2$, because $\Sq^2$ vanishes on classes of degree less than two and $\Sq^2$ of a degree-two class $x$ is $x^2$, of which the Bockstein lies in $H^5$; and the image of $\Sq^3_\ZZ$ consists of torsion classes, because it factors through a Bockstein. The higher differentials $d_5,d_7,\dots$ are not given by primary cohomology operations and need not vanish in general; no claim about them is needed in this paper because they vanish for reasons of degree in all the cases considered.
+where $\rho_2$ is reduction modulo $2$ and $\beta$ the Bockstein of $0\to\ZZ\to\ZZ\to\ZZ/2\to0$; this is due to Atiyah and Hirzebruch \cite{AH61}. Two consequences are used below: $\Sq^3_\ZZ$ vanishes on $H^0$ and on $H^2$, because $\Sq^2$ vanishes on classes of degree less than two, while for an integral class $x$ of degree two $\Sq^2\rho_2x=(\rho_2x)^2=\rho_2(x^2)$ is the reduction of an integral class and so has zero Bockstein; and the image of $\Sq^3_\ZZ$ consists of torsion classes, because it factors through a Bockstein. The higher differentials $d_5,d_7,\dots$ are not given by primary cohomology operations and need not vanish in general; no claim about them is needed in this paper because they vanish for reasons of degree in all the cases considered.
 
 The spectral sequence gives $K^*(X)$ only up to extensions: $K^n(X)$ carries the filtration $F^pK^n(X)=\ker\bigl(K^n(X)\to K^n(X^{(p-1)})\bigr)$ and $E_\infty^{p,n-p}=F^p/F^{p+1}$. When $E_\infty^{p,n-p}$ is free for all $p$ but the largest one, every extension splits and $K^n(X)\cong\bigoplus_pE_\infty^{p,n-p}$.
 
@@ -132,7 +146,7 @@ If $H^*(X;\ZZ)$ is torsion-free and concentrated in even degrees then every diff
 
 \begin{table}[ht]
 \centering
-\caption{Untwisted K-groups of some compactification spaces (Example~\ref{ex:even}; the Calabi--Yau line assumes torsion-free cohomology). The Type IIA charges lie in $K^0$, the Type IIB charges in $K^1$.}
+\caption{Untwisted K-groups of some compactification spaces (Example~\ref{ex:even}; the Calabi--Yau line assumes torsion-free cohomology). In the convention in which a brane extended along the noncompact spacetime and wrapping $W\subset X$ has the charge $\iota_!E\in K^*(X)$ of Section~\ref{sec:index}, Type IIA branes wrap even-dimensional cycles of $X$ and their charges lie in $K^0(X)$, Type IIB branes wrap odd-dimensional cycles and their charges lie in $K^1(X)$ \cite{Wit98}.}
 \label{tab:kgroups}
 \begin{tabular}{lccc}
 \toprule
@@ -150,7 +164,7 @@ Calabi--Yau threefold & 6 & $\ZZ^{2+2h^{1,1}}$ & $\ZZ^{2+2h^{2,1}}$\\
 \end{table}
 
 \subsection{Kasparov's bivariant theory}
-For separable $C^*$-algebras $A$ and $B$, Kasparov's group $\KK(A,B)$ \cite{Kas81} is the set of homotopy classes of triples $(E,\phi,F)$ with $E$ a countably generated Hilbert $B$-module, $\phi\colon A\to\mathcal L(E)$ a $*$-homomorphism and $F\in\mathcal L(E)$ an operator with $\phi(a)(F^2-1)$, $\phi(a)(F-F^*)$ and $[\phi(a),F]$ compact for all $a\in A$. The Kasparov product $\KK(A,B)\times\KK(B,C)\to\KK(A,C)$ makes these groups the morphisms of an additive category, and $K_0(B)=\KK(\CC,B)$, $K_1(B)=\KK(\CC,B\otimes C_0(\RR))$. For $B=C(X)$ this is $K^0(X)$ and $K^1(X)$. A brane--antibrane pair with Chan--Paton bundles $E_1,E_2$ and tachyon $T\colon E_1\to E_2$ defines the Kasparov module $(E_1\oplus E_2,\,\phi,\,\bigl(\begin{smallmatrix}0&T^*\\T&0\end{smallmatrix}\bigr))$ over $C(X)$, and its class is the K-theory class $[E_1]-[E_2]$; this is the K-theoretic form of Sen's descent relations \cite{Sen98,Wit98}.
+For separable $C^*$-algebras $A$ and $B$, Kasparov's group $\KK(A,B)=\KK_0(A,B)$ \cite{Kas81} is the set of homotopy classes of triples $(E,\phi,F)$ with $E$ a countably generated $\ZZ/2$-graded Hilbert $B$-module, $\phi\colon A\to\mathcal L(E)$ a $*$-homomorphism by even operators and $F\in\mathcal L(E)$ a bounded odd operator with $\phi(a)(F^2-1)$, $\phi(a)(F-F^*)$ and $[\phi(a),F]$ compact for all $a\in A$, so that $F$ is Fredholm modulo the compact operators on the support of $\phi$. The Kasparov product $\KK(A,B)\times\KK(B,C)\to\KK(A,C)$ makes these groups the morphisms of an additive category, and $K_0(B)=\KK(\CC,B)$, $K_1(B)=\KK(\CC,B\otimes C_0(\RR))$. For $B=C(X)$ this is $K^0(X)$ and $K^1(X)$. A brane--antibrane pair with Chan--Paton bundles $E_1,E_2$ and tachyon $T\colon E_1\to E_2$ defines the Kasparov module $(E_1\oplus E_2,\,\phi,\,\bigl(\begin{smallmatrix}0&T^*\\T&0\end{smallmatrix}\bigr))$ over $C(X)$, with $E_1$ in even and $E_2$ in odd degree, $\phi$ the multiplication by functions and the operator normalised so that $T^*T-1$ is compact wherever $T$ is invertible up to compacts; its class is the K-theory class $[E_1]-[E_2]$; this is the K-theoretic form of Sen's descent relations \cite{Sen98,Wit98}.
 
 \section{Twisted K-theory}\label{sec:twisted}
 
@@ -179,7 +193,7 @@ The sign of the second term depends on conventions and plays no role in what fol
 \draw[->] (-0.3,0) -- (7.3,0) node[right] {$p$};
 \draw[->] (0,-0.3) -- (0,4.3) node[above] {$q$};
 \foreach \p in {0,...,6} \node[below,font=\scriptsize] at (\p,-0.1) {\p};
-\foreach \q/\l in {0/0,2/-2,4/-4} \node[left,font=\scriptsize] at (-0.1,\q) {$\l$};
+\foreach \q/\l in {0/-4,2/-2,4/0} \node[left,font=\scriptsize] at (-0.1,\q) {$\l$};
 \foreach \q in {0,2,4}{
   \node[circle,fill=blue!70!black,inner sep=1.6pt] at (0,\q) {};
   \node[circle,fill=blue!70!black,inner sep=1.6pt] at (2,\q) {};
@@ -197,24 +211,32 @@ The sign of the second term depends on conventions and plays no role in what fol
 \draw[->,thick,red!70!black] (0.15,2) -- (2.85,0.15);
 \draw[->,thick,red!70!black] (3.15,2) -- (5.85,0.15);
 \end{tikzpicture}
-\caption{The $E_2$ page of the twisted Atiyah--Hirzebruch spectral sequence of a simply connected six-manifold with torsion-free cohomology. The columns $p=1$ and $p=5$ are empty. The only differentials that can be nonzero are the two $d_3$ shown, the cup product with $H$ from $H^0$ to $H^3$ and from $H^3$ to $H^6$; every later page coincides with $E_4$.}
+\caption{The $E_2$ page of the twisted Atiyah--Hirzebruch spectral sequence of a six-manifold with $H_1=0$ and torsion-free cohomology ($d_r$ has bidegree $(r,1-r)$). The columns $p=1$ and $p=5$ are empty. The only differentials that can be nonzero are the two $d_3$ shown, the cup product with $H$ from $H^0$ to $H^3$ and from $H^3$ to $H^6$; every later page coincides with $E_4$. With torsion in $H^3$ and $H^4$ the picture is the same, with $\ZZ^{b_3}$ and $\ZZ^{b_2}$ in columns $3$ and $4$ replaced by $\ZZ^{b_3}\oplus T$ and $\ZZ^{b_2}\oplus T$.}
 \label{fig:ahss}
 \end{figure}
 
 \section{Six-manifolds and Calabi--Yau threefolds}\label{sec:six}
 
-Throughout this section $X$ is a closed oriented simply connected six-manifold with torsion-free integral cohomology. Then $H^1(X;\ZZ)=0$, $H^5(X;\ZZ)\cong H_1(X;\ZZ)=0$, $H^4\cong\ZZ^{b_2}$ by Poincar\'e duality, and the cup product pairing
+Throughout this section $X$ is a connected closed six-manifold with $H_1(X;\ZZ)=0$; simple connectivity implies this and is not needed. For the duality step, Lemma~\ref{lem:duality}, $X$ is also spin$^c$; a Calabi--Yau threefold is spin, hence spin$^c$. We write $T=\Tor H^3(X;\ZZ)$ and $L=H^3(X;\ZZ)/T$.
+
+\begin{lemma}\label{lem:cohomology}
+$H^0\cong H^6\cong\ZZ$, $H^1=H^5=0$, $H^2\cong\ZZ^{b_2}$ is free, $H^3\cong\ZZ^{b_3}\oplus T$ with $T\cong\Tor H_2(X;\ZZ)$, and $H^4\cong\ZZ^{b_2}\oplus T$. The cup product pairing
 \begin{equation}\label{eq:omega}
-\omega\colon H^3(X;\ZZ)\times H^3(X;\ZZ)\to\ZZ,\qquad\omega(y,z)=\langle y\cup z,[X]\rangle,
+\omega\colon L\times L\to\ZZ,\qquad\omega(y,z)=\langle y\cup z,[X]\rangle,
 \end{equation}
-is a unimodular alternating form: it is skew because $y\cup z=-z\cup y$ in odd degree, it is alternating because $2\,y\cup y=0$ and $H^6$ is torsion-free, and it is unimodular by Poincar\'e duality. Any Calabi--Yau threefold with torsion-free cohomology is of this kind; the quintic in $\CC P^4$ has $(b_2,b_3)=(1,204)$, the intersection of two cubics in $\CC P^2\times\CC P^2$ has $(2,168)$, and the Schoen manifold has $(19,40)$.
+is well defined, unimodular and alternating.
+\end{lemma}
+
+\begin{proof}
+By the universal coefficient theorem $H^1\cong\Hom(H_1,\ZZ)=0$, $H^2\cong\Hom(H_2,\ZZ)\oplus\Ext(H_1,\ZZ)=\Hom(H_2,\ZZ)$ is free, and $\Tor H^3\cong\Ext(H_2,\ZZ)\cong\Tor H_2$. Poincar\'e duality gives $H^5\cong H_1=0$ and $H^4\cong H_2$, whose torsion is $T$. The pairing $H^3\times H^3\to\ZZ$ kills torsion, so descends to $L$; it is skew because $y\cup z=-z\cup y$ in odd degree, alternating because $2\,y\cup y=0$ and $H^6$ is torsion-free, and unimodular because Poincar\'e duality and the universal coefficient theorem identify $L$ with $\Hom(H_3,\ZZ)\cong\Hom(L,\ZZ)$ through it.
+\end{proof}
 
 \begin{proposition}\label{prop:untwistedsix}
-$K^0(X)\cong H^0\oplus H^2\oplus H^4\oplus H^6\cong\ZZ^{2+2b_2}$ and $K^1(X)\cong H^3(X;\ZZ)\cong\ZZ^{b_3}$.
+If $H^*(X;\ZZ)$ is torsion-free then $K^0(X)\cong H^0\oplus H^2\oplus H^4\oplus H^6\cong\ZZ^{2+2b_2}$ and $K^1(X)\cong H^3(X;\ZZ)\cong\ZZ^{b_3}$. For a Calabi--Yau threefold, torsion included, $\widetilde K^0(X)\cong H^2\oplus H^4\oplus 2H^6$ and $K^1(X)\cong H^1\oplus H^3\oplus H^5$ by Doran and Morgan \cite{DM07}.
 \end{proposition}
 
 \begin{proof}
-In \eqref{eq:ahss} the differential $d_3=\Sq^3_\ZZ$ vanishes on $H^0$ and $H^2$ by the remarks after \eqref{eq:d3}, and on $H^3$ it lands in the torsion of $H^6\cong\ZZ$, so it vanishes there too; $H^1=H^5=0$ removes the remaining sources and targets. The differentials $d_5\colon E^{p}\to E^{p+5}$ and $d_7\colon E^p\to E^{p+7}$ have zero source or target for every $p$ between $0$ and $6$ except $d_5\colon E^{0}\to E^{5}=0$ and $d_5\colon E^1=0\to E^6$. So $E_2=E_\infty$, every filtration quotient is free and the extensions split.
+In \eqref{eq:ahss} the differential $d_3=\Sq^3_\ZZ$ vanishes on $H^0$ and $H^2$ by the remarks after \eqref{eq:d3}, and on $H^3$ it lands in the torsion of $H^6\cong\ZZ$, so it vanishes there too; $H^1=H^5=0$ removes the remaining sources and targets. The differentials $d_5\colon E^{p}\to E^{p+5}$ and $d_7\colon E^p\to E^{p+7}$ have zero source or target for every $p$ between $0$ and $6$ except $d_5\colon E^{0}\to E^{5}=0$ and $d_5\colon E^1=0\to E^6$. So $E_2=E_\infty$, every filtration quotient is free and the extensions split. The second statement is proved in \cite{DM07} through the Postnikov tower of $BSU$; its torsion agrees with the untwisted case of Theorem~\ref{thm:six} below.
 \end{proof}
 
 \begin{lemma}\label{lem:lattice}
@@ -228,44 +250,132 @@ H_0^\perp/\ZZ H\;\cong\;\ZZ^{\rk L-2}\oplus\ZZ/m .
 Unimodularity means that $y\mapsto\omega(y,-)$ is an isomorphism $L\to\operatorname{Hom}(L,\ZZ)$, so it carries the primitive vector $H_0$ to a primitive functional, which takes the value $1$ somewhere; hence $\omega(H_0,-)$ is onto $\ZZ$ and $\omega(H,-)=m\,\omega(H_0,-)$ has image $m\ZZ$. The kernel $H_0^\perp$ of a surjection onto $\ZZ$ is a direct summand of corank one, and $H_0\in H_0^\perp$ because $\omega$ is alternating. A primitive vector of $L$ lying in a direct summand is primitive in that summand, so $H_0^\perp=\ZZ H_0\oplus L'$ with $L'$ free of rank $\rk L-2$, and $H_0^\perp/\ZZ mH_0\cong\ZZ/m\oplus L'$.
 \end{proof}
 
-\begin{proof}[Proof of Theorem~\ref{thm:six}]
-Consider the spectral sequence of $K^{H,*}(X)$ with $d_3=\Sq^3_\ZZ-H\cup(-)$ (Theorem~\ref{thm:twistedd3}). As in Proposition~\ref{prop:untwistedsix} the operation $\Sq^3_\ZZ$ contributes nothing: it vanishes on $H^0$ and $H^2$, and on $H^3$ its image is torsion in $H^6\cong\ZZ$. The cup product with $H$ is zero from $H^2$ to $H^5=0$ and from $H^4$ to $H^7=0$, so the only nonzero differentials on $E_3$ are
-\[
-d_3\colon H^0\to H^3,\ 1\mapsto -H,\qquad d_3\colon H^3\to H^6,\ y\mapsto-\omega(H,y)\,[X]^\vee,
-\]
-as in Figure~\ref{fig:ahss}. The $E_4$ page is therefore
-\[
-E_4^{0}=0,\quad E_4^{2}=H^2,\quad E_4^{3}=\ker\omega(H,-)/\ZZ H,\quad E_4^{4}=H^4,\quad E_4^{6}=\ZZ/\im\omega(H,-),
-\]
-and $E_4^{1}=E_4^{5}=0$, where we write $E_r^{p}$ for $E_r^{p,q}$ with $q$ even. Every $d_r$ with $r\ge5$ has zero source or target, because the only pairs of columns at distance $5$ or $7$ are $(0,5)$, $(1,6)$ and $(0,7)$ and the columns $1$, $5$, $7$ are zero. So $E_4=E_\infty$.
+\subsection{The spectral sequence}
+Let $H\in H^3(X;\ZZ)$ and let $f_H\colon H^3(X;\ZZ)\to\ZZ$, $f_H(y)=\langle H\cup y,[X]\rangle$; it kills $T$ and factors through $\omega(\bar H,-)$ on $L$, where $\bar H$ is the image of $H$ in $L$. Since $\omega$ is alternating, $f_H(H)=0$ and $\ZZ H\subset\ker f_H$.
 
-By Lemma~\ref{lem:lattice} applied to $L=H^3(X;\ZZ)$ with the form \eqref{eq:omega}, $E_\infty^3\cong\ZZ^{b_3-2}\oplus\ZZ/m$ and $E_\infty^6\cong\ZZ/m$. The odd group $K^{H,1}(X)$ has the single nonzero filtration quotient $E_\infty^{3}$, so $K^{H,1}(X)\cong H_0^\perp/\ZZ H$. The even group has the quotients $E_\infty^2=H^2$, $E_\infty^4=H^4$ and $E_\infty^6=\ZZ/m$, with $F^6=E_\infty^6$ the smallest filtration step; the extensions $0\to F^6\to F^4\to H^4\to0$ and $0\to F^4\to K^{H,0}(X)\to H^2\to0$ split because $H^4$ and $H^2$ are free. Hence $K^{H,0}(X)\cong H^2\oplus H^4\oplus\ZZ/m\cong\ZZ^{2b_2}\oplus\ZZ/m$.
+\begin{lemma}\label{lem:degenerate}
+In the spectral sequence of $K^{H,*}(X)$ the only differentials with nonzero source and target are
+\[
+d_3\colon H^0\to H^3,\ 1\mapsto -H,\qquad d_3\colon H^3\to H^6,\ y\mapsto-f_H(y)\,[X]^\vee,
+\]
+and $E_4=E_\infty$. Consequently
+\[
+E_\infty^{0}=\ker(1\mapsto H),\quad E_\infty^{2}=H^2,\quad E_\infty^{3}=\ker f_H/\ZZ H,\quad E_\infty^{4}=H^4,\quad E_\infty^{6}=\ZZ/\im f_H,
+\]
+$E_\infty^1=E_\infty^5=0$, where $E_r^{p}$ stands for $E_r^{p,q}$ with $q$ even.
+\end{lemma}
+
+\begin{proof}
+By Theorem~\ref{thm:twistedd3}, $d_3=\Sq^3_\ZZ-H\cup(-)$. As in Proposition~\ref{prop:untwistedsix} the operation $\Sq^3_\ZZ$ vanishes on $H^0$ and $H^2$, its image on $H^3$ is torsion in $H^6\cong\ZZ$, and on $H^4$, $H^5$, $H^6$ its target is zero. The cup product with $H$ is zero from $H^1=0$, from $H^2$ to $H^5=0$ and from $H^4$ to $H^7=0$; this leaves the two maps displayed, and the second one is $-f_H$ by definition. The columns $1$, $5$ and $7$ are zero, so every $d_r$ with $r\ge5$, whose source and target are columns at distance $r$, has zero source or target ($(0,5)$, $(1,6)$, $(0,7)$ are the only pairs); hence $E_4=E_\infty$, for torsion twists as well as for twists of infinite order. The displayed groups are the $E_4$ terms.
 \end{proof}
 
-\begin{corollary}\label{cor:cy}
-For a Calabi--Yau threefold $X$ with torsion-free cohomology and Hodge numbers $h^{1,1},h^{2,1}$, and for $H=mH_0\neq0$ with $H_0$ primitive,
+\begin{proposition}\label{prop:odd}
+$K^{H,1}(X)\cong\ker f_H/\ZZ H$. This group has rank $b_3-2\delta_H$ and torsion subgroup $C_H=\Tor(H^3(X;\ZZ)/\ZZ H)$.
+\end{proposition}
+
+\begin{proof}
+The odd group is filtered by the columns $1$, $3$ and $5$, of which only column $3$ is nonzero, so $K^{H,1}(X)=E_\infty^3=\ker f_H/\ZZ H$ and there is no extension problem. If $H$ is torsion then $f_H=0$, the quotient is $H^3/\ZZ H$, its rank is $b_3$ and its torsion is $C_H$ by definition. If $H$ has infinite order, write $\bar H=mH_0$ with $H_0\in L$ primitive. By Lemma~\ref{lem:lattice} the image of $f_H$ is $m\ZZ$ and $\ker f_H$ has rank $b_3-1$, so $\ker f_H/\ZZ H$ has rank $b_3-2$. The exact sequence $0\to\ker f_H/\ZZ H\to H^3/\ZZ H\to m\ZZ\to0$ has a free last term, so the torsion subgroups of its first two groups coincide, and the second one is $C_H$.
+\end{proof}
+
+\subsection{Duality determines the even torsion}
+The even group $K^{H,0}(X)$ is an iterated extension of $E_\infty^{0}$, $H^2$, $H^4$ and $\ZZ/\im f_H$; when $T\ne0$ the extension by $H^4\cong\ZZ^{b_2}\oplus T$ need not split, and we determine the group by duality instead. Let $A_H=\Gamma(X,\mathcal K_H)$ be the continuous-trace algebra of Section~\ref{sec:twisted}, so that $K^{H,n}(X)=K_{-n}(A_H)$; its opposite algebra $A_H^{\mathrm{op}}$ is the continuous-trace algebra with Dixmier--Douady class $-H$.
+
+\begin{lemma}\label{lem:duality}
+For $X$ as above and spin$^c$,
 \[
-K^{H,0}(X)\cong\ZZ^{2h^{1,1}}\oplus\ZZ/m,\qquad K^{H,1}(X)\cong\ZZ^{2h^{2,1}}\oplus\ZZ/m .
+\Tor K^{H,0}(X)\;\cong\;\Hom\bigl(\Tor K^{-H,1}(X),\,\QQ/\ZZ\bigr).
 \]
-The twisted groups determine the divisibility $m$ of the flux and nothing else about $H$.
+\end{lemma}
+
+\begin{proof}
+Tu's Poincar\'e duality for twisted K-theory \cite[Theorem~3.1]{Tu09} identifies the twisted K-theory of $X$ with twist $A_H$ with the twisted K-homology of $X$ with twist $C_\tau\hat\otimes A_H^{\mathrm{op}}$, where $C_\tau$ is the Clifford algebra bundle of the cotangent bundle. When $X$ is spin$^c$ the twist $C_\tau$ is trivial up to a degree shift by $\dim X=6$, which is even, so
+\[
+K_0(A_H)\;\cong\;\KK_0(A_{-H},\CC).
+\]
+The algebra $A_{-H}$ is separable, nuclear and belongs to the bootstrap class, being built from commutative algebras by finitely many extensions along the skeleta of $X$. The universal coefficient theorem of Rosenberg and Schochet \cite{RS87} therefore gives a short exact sequence
+\[
+0\longrightarrow\Ext^1_\ZZ\bigl(K_1(A_{-H}),\ZZ\bigr)\longrightarrow\KK_0(A_{-H},\CC)\longrightarrow\Hom\bigl(K_0(A_{-H}),\ZZ\bigr)\longrightarrow0 .
+\]
+The K-groups are finitely generated by Lemma~\ref{lem:degenerate}, so the last term is free and the first is finite; the first term is therefore the torsion subgroup of the middle one. Finally $K_1(A_{-H})=K^{-H,1}(X)$, and for a finitely generated group $G$ with torsion subgroup $G_{\mathrm{tor}}$ the sequence $0\to\ZZ\to\QQ\to\QQ/\ZZ\to0$ gives $\Ext^1_\ZZ(G,\ZZ)\cong\Hom(G_{\mathrm{tor}},\QQ/\ZZ)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:six}]
+Proposition~\ref{prop:odd} is the odd statement. Since $\ZZ(-H)=\ZZ H$ and $f_{-H}=-f_H$, Proposition~\ref{prop:odd} for $-H$ gives $\Tor K^{-H,1}(X)\cong C_H$, and Lemma~\ref{lem:duality} gives $\Tor K^{H,0}(X)\cong C_H^\vee$. For the rank, tensor the filtration of Lemma~\ref{lem:degenerate} with $\QQ$: columns $2$ and $4$ contribute $b_2$ each; if $H$ has infinite order then $E^0_\infty=0$ and $E^6_\infty=\ZZ/m$ is finite, while if $H$ is torsion then $E^0_\infty\cong\ZZ$ (the kernel of $1\mapsto H$ is $k\ZZ$ for $H$ of order $k$, and $\ZZ$ for $H=0$) and $E^6_\infty=\ZZ$. This gives the rank $2+2b_2-2\delta_H$, and a finitely generated abelian group is the direct sum of its torsion subgroup and a free group.
+
+In the torsion-free case $T=0$, $C_H=\Tor(L/\ZZ mH_0)\cong\ZZ/m$, and the extensions $0\to E_\infty^6\to F^4\to H^4\to0$ and $0\to F^4\to K^{H,0}(X)\to H^2\to0$ split because $H^4$ and $H^2$ are free, which gives $K^{H,0}(X)\cong H^2\oplus H^4\oplus H^6/mH^6$ without using Lemma~\ref{lem:duality}; and $K^{H,1}(X)\cong H_0^\perp/\ZZ H$ is Proposition~\ref{prop:odd} with Lemma~\ref{lem:lattice}.
+\end{proof}
+
+\subsection{The torsion group}
+\begin{proposition}\label{prop:presentation}
+Let $H$ have infinite order. Choose a splitting $H^3(X;\ZZ)\cong L\oplus T$ with $T\cong\bigoplus_{j=1}^r\ZZ/n_j$, and a basis of $L$ in which $\bar H=(m,0,\dots,0)$; write the component of $H$ in $T$ as $(t_1,\dots,t_r)$. Then $C_H$ is the abelian group with generators $u,c_1,\dots,c_r$ and relations
+\begin{equation}\label{eq:presentation}
+mu+\textstyle\sum_jt_jc_j=0,\qquad n_jc_j=0\quad(1\le j\le r),
+\end{equation}
+of order $m\,|T|$. In particular, if $T\cong\ZZ/n$ and the torsion component of $H$ is $t$, then with $g=\gcd(m,n,t)$
+\[
+C_H\;\cong\;\ZZ/g\oplus\ZZ/(mn/g),
+\]
+and the extension $0\to T\to C_H\to\ZZ/m\to0$ splits if and only if $\gcd(m,n)$ divides $t$.
+\end{proposition}
+
+\begin{proof}
+The quotient $H^3/\ZZ H$ is the direct sum of the free group on the last $b_3-1$ basis vectors of $L$ and of the group generated by $u$ (the first basis vector) and the $c_j$ subject to \eqref{eq:presentation}; the latter is finite, of order the determinant $m\prod_jn_j$ of the relation matrix, so it is $C_H$. For $T=\ZZ/n$ the relation matrix $\bigl(\begin{smallmatrix}m&0\\t&n\end{smallmatrix}\bigr)$ has first determinantal divisor $g$ and determinant $mn$, so its Smith normal form is $\operatorname{diag}(g,mn/g)$. The map $C_H\to\ZZ/m$, $u\mapsto1$, $c\mapsto0$, has kernel the copy of $T$; a lift $u+sc$ of $1$ satisfies $m(u+sc)=(ms-t)c$, which vanishes for some $s$ exactly when $t\in mT$, that is when $\gcd(m,n)\mid t$. A change of the splitting replaces $t$ by $t+ms$ and $u$ by $u-sc$, which gives an equivalent presentation, so the group does not depend on the choices.
+\end{proof}
+
+For a torsion twist, $H\in T$, the group is simply $C_H=T/\langle H\rangle$, and Theorem~\ref{thm:six} reads $K^{H,1}(X)\cong\ZZ^{b_3}\oplus T/\langle H\rangle$, $K^{H,0}(X)\cong\ZZ^{2+2b_2}\oplus(T/\langle H\rangle)^\vee$; for $H=0$ this is the untwisted statement after Theorem~\ref{thm:six}.
+
+\subsection{Spin six-manifolds on which the torsion of the flux matters}
+\begin{proposition}\label{prop:surgery}
+For every $n\ge1$ there is a closed simply connected spin six-manifold $M_n$ with $H_2(M_n;\ZZ)\cong H_3(M_n;\ZZ)\cong\ZZ/n$ and all other reduced integral homology zero. The manifold $X_n=M_n\mathbin\#(S^3\times S^3)$ is closed, simply connected and spin, with $b_2(X_n)=0$, $b_3(X_n)=2$ and
+\[
+H^3(X_n;\ZZ)\cong\ZZ a\oplus\ZZ b\oplus\ZZ/n\,c,\qquad\langle a\cup b,[X_n]\rangle=1 .
+\]
+\end{proposition}
+
+\begin{proof}
+Let $Y=S^2\times S^4$ and let $S\subset Y$ be a smoothly embedded $2$-sphere representing $n[S^2\times\{*\}]\in H_2(Y;\ZZ)\cong\ZZ$; it exists because a generic map $S^2\to Y$ is an embedding, the double-point set of a map from a surface to a six-manifold having negative expected dimension. The normal bundle $\nu$ of $S$ is an oriented rank-four bundle over $S^2$, classified by $w_2(\nu)\in H^2(S^2;\ZZ/2)$ since $\pi_1(SO(4))=\ZZ/2$, and $w_2(\nu)=w_2(TY)|_S+w_2(TS^2)=0$ because $Y$ and $S^2$ are spin; so $\nu$ is trivial, and its framings form a torsor under $\pi_2(SO(4))=0$. Let $U=Y\setminus\operatorname{int}(S\times D^4)$ and $M_n=U\cup_{S^2\times S^3}(D^3\times S^3)$ be the result of surgery on $S$. The spin structure of $Y$ restricts to the unique spin structure of $S^2$, which bounds $D^3$, so it extends over the trace of the surgery and $M_n$ is spin; $M_n$ is simply connected by van Kampen, since $U$ is simply connected (a loop or a disc in $Y$ can be moved off the codimension-four sphere $S$) and so is $D^3\times S^3$.
+
+Excision gives $H_*(Y,U)\cong H_*(S^2\times D^4,S^2\times S^3)\cong\widetilde H_*(\Sigma^4S^2_+)$, which is $\ZZ$ in degrees $4$ and $6$ and zero otherwise, and the map $H_4(Y)\to H_4(Y,U)$ is multiplication by the intersection number of $[\{*\}\times S^4]$ with $S$, which is $n$. The long exact sequence of the pair gives $H_1(U)=H_4(U)=H_5(U)=0$, $H_2(U)\cong\ZZ$ generated by $[S^2\times\{*\}]$, and $H_3(U)\cong\ZZ/n$ generated by the fibre sphere $\{*\}\times S^3$ of $\partial U$. In the Mayer--Vietoris sequence of $M_n=U\cup(D^3\times S^3)$ along $S^2\times S^3$ the map in degree $2$ is $\ZZ\to\ZZ$, multiplication by $n$, since the sphere $S^2\times\{*\}\subset\partial U$ is a parallel copy of $S$; the map in degree $3$ is $\ZZ\to\ZZ/n\oplus\ZZ$, $z\mapsto(\bar z,\pm z)$, injective with cokernel $\ZZ/n$; and in degree $5$ the source $H_5(S^2\times S^3)=\ZZ$ maps to $0$. Hence $H_1(M_n)=0$, $H_2(M_n)\cong\ZZ/n$, $H_3(M_n)\cong\ZZ/n$, $H_4(M_n)=0$ and $H_5(M_n)=0$. (As a check, $\chi(M_n)=\chi(Y)-\chi(S^2\times D^4)+\chi(D^3\times S^3)=4-2+0=2$.)
+
+The connected sum with $S^3\times S^3$ adds two free generators to $H_3$, with intersection number $1$, and changes nothing else; it stays simply connected and spin. The cohomology follows from the universal coefficient theorem: $H^3(X_n)\cong\Hom(H_3,\ZZ)\oplus\Ext(H_2,\ZZ)\cong\ZZ^2\oplus\ZZ/n$ and $H^2(X_n)\cong\Hom(H_2,\ZZ)=0$.
+\end{proof}
+
+\begin{corollary}\label{cor:realized}
+On $X_n$ let $H=ma+tc$ with $m\ge1$. Then both twisted K-groups are finite,
+\[
+K^{H,0}(X_n)\;\cong\;K^{H,1}(X_n)\;\cong\;\ZZ/g\oplus\ZZ/(mn/g),\qquad g=\gcd(m,n,t).
+\]
+For $n=m=2$ the fluxes $2a$ and $2a+c$ give $\ZZ/2\oplus\ZZ/2$ and $\ZZ/4$ respectively, in each parity.
 \end{corollary}
 
 \begin{proof}
-$b_2=h^{1,1}$ and $b_3=2+2h^{2,1}$ for a Calabi--Yau threefold, and $\pi_1(X)=0$ may be assumed after passing to the universal cover, which is again Calabi--Yau; a Calabi--Yau threefold in the strict sense has finite fundamental group, and the statement is for the simply connected ones. The last sentence holds because the invariants $m$ in the two parities coincide and the ranks do not depend on $H$.
+$X_n$ is spin and $H_1(X_n)=0$, so Theorem~\ref{thm:six} applies with $b_2=0$ and $b_3=2$: both ranks vanish, and Proposition~\ref{prop:presentation} with $T=\ZZ/n$ gives $C_H$. A finite abelian group and its character group have the same invariant factors.
+\end{proof}
+
+\begin{corollary}\label{cor:cy}
+Let $X$ be a Calabi--Yau threefold with $H_1(X;\ZZ)=0$, Hodge numbers $h^{1,1},h^{2,1}$, and let $H\in H^3(X;\ZZ)$ be of infinite order. Then
+\[
+K^{H,0}(X)\cong\ZZ^{2h^{1,1}}\oplus C_H^\vee,\qquad K^{H,1}(X)\cong\ZZ^{2h^{2,1}}\oplus C_H .
+\]
+If $H^3(X;\ZZ)$ is torsion-free and $H=mH_0$ with $H_0$ primitive, then $C_H\cong\ZZ/m$, and the twisted groups determine the divisibility $m$ of the flux and nothing else about $H$.
+\end{corollary}
+
+\begin{proof}
+A Calabi--Yau threefold is spin, so Theorem~\ref{thm:six} applies, with $b_2=h^{1,1}$ and $b_3=2+2h^{2,1}$ since $h^{1,0}=h^{2,0}=0$ and $h^{3,0}=1$. The last sentence holds because the invariants $m$ in the two parities coincide and the ranks do not depend on $H$.
 \end{proof}
 
 \begin{remark}\label{rem:rational}
-Tensoring with $\QQ$ gives $\rk K^{H,0}=2b_2$ and $\rk K^{H,1}=b_3-2$ for every nonzero $H$, which agrees with the computation of the $H$-twisted de Rham cohomology $H^*(\Omega^\bullet(X),d-H\wedge)$ of a six-manifold: $d-H\wedge$ kills the constants in degree $0$ and the top form in degree $6$ against the classes $H$ and the dual of $H$ in degree $3$, and nothing else. The integral statement, the two cyclic groups of order $m$, is the content of Theorem~\ref{thm:six}.
+Tensoring with $\QQ$ gives $\rk K^{H,0}=2b_2$ and $\rk K^{H,1}=b_3-2$ for every $H$ of infinite order, which agrees with the computation of the $H$-twisted de Rham cohomology $H^*(\Omega^\bullet(X),d-H\wedge)$ of a six-manifold: $d-H\wedge$ kills the constants in degree $0$ and the top form in degree $6$ against the classes $H$ and the dual of $H$ in degree $3$, and nothing else. The integral statement, the finite groups $C_H$ and $C_H^\vee$, is the content of Theorem~\ref{thm:six}; a torsion flux is invisible rationally and acts only on the torsion.
 \end{remark}
 
 \begin{remark}\label{rem:torsion}
-If $H^3(X;\ZZ)$ has torsion, equivalently $H_2(X;\ZZ)$ has torsion, then $H^4$ has the same torsion subgroup and the extension $0\to\ZZ/m\to F^4\to H^4\to0$ need not split. The ranks and the invariant $m$ of the odd group are unchanged, since torsion in $H^3$ is killed by $\omega(H,-)$ and contributes to $K^{H,1}$ through $E_\infty^3$, but the even group is determined only up to this extension. We do not resolve it here.
+Theorem~\ref{thm:six} determines $K^{H,*}(X)$ as abstract groups. It does not determine the filtration of $K^{H,0}(X)$ by the spectral sequence, the $K^0(X)$-module structure of $K^{H,*}(X)$, or a preferred isomorphism $C_H^\vee\cong C_H$. The manifolds $X_n$ of Proposition~\ref{prop:surgery} are not K\"ahler, since $b_2=0$; we do not know a Calabi--Yau threefold with $H_1=0$ and torsion in $H^3$ on which the torsion component of the flux is seen, although the theorem applies to any such threefold.
 \end{remark}
 
 \subsection{The D-brane reading}\label{ssec:branes}
-Let $X$ be a Calabi--Yau threefold as in Corollary~\ref{cor:cy}. In Type IIA on $X$ the even-dimensional branes wrap even cycles and their charges lie in $K^{H,0}(X)$. The flux removes the classes of $H^0$ and $H^6$, the charges of a D6-brane filling $X$ and of a D0-brane, and leaves a D0-charge of order exactly $m$: the point class generates $E_\infty^6=H^6/mH^6$, so a single D0-brane carries a nonzero charge of order $m$ and $m$ coincident D0-branes carry none. For $X=S^3$ with $k$ units of flux this is the $\ZZ/k$ of \cite{MMS01} in its original setting. The D2- and D4-charges in $H^2\oplus H^4$ are not affected.
+Let $X$ be a Calabi--Yau threefold as in Corollary~\ref{cor:cy}, with torsion-free cohomology and $H=mH_0$, and use the convention of Table~\ref{tab:kgroups}: a brane extended along the noncompact spacetime and wrapping a cycle $W\subset X$ with Chan--Paton bundle $E$ has the charge $\iota_!E$ of Section~\ref{sec:index}. In Type IIA the branes wrap even-dimensional cycles and their charges lie in $K^{H,0}(X)$. The flux removes the classes of $H^0$ and $H^6$, the charges of a D6-brane filling $X$ and of a D0-brane, and leaves a D0-charge of order $m$: the point class generates $E_\infty^6=H^6/mH^6$, so the class of a single D0-brane has order $m$, nonzero when $m>1$, and the class of $m$ D0-branes vanishes. For $X=S^3$ with $k$ units of flux this is the $\ZZ/k$ of \cite{MMS01} in its original setting. The D2- and D4-charges in $H^2\oplus H^4$ are not affected. These are statements about the charge group; they say nothing about the existence of stable branes representing a given class or about a dynamical process by which $m$ D0-branes disappear.
 
-In Type IIB the D3-branes wrap three-cycles $W\subset X$, and the Freed--Witten anomaly \cite{FW99} requires $H|_W=0$, that is $\int_WH=\omega(H,[W]^\vee)=0$. These are exactly the classes of $H_0^\perp$, and $K^{H,1}(X)=H_0^\perp/\ZZ H$ records in addition that $m$ copies of the D3-brane on the cycle dual to $H_0$ carry no charge, while a single copy carries a charge of order $m$. The D-instanton and the D5-brane filling $X$ have no classes to wrap in degree $3$; this is consistent, since both would need the lost classes of $H^0$ and $H^6$ in a Type IIA frame reached by T-duality.
+In Type IIB the D3-branes wrap three-cycles $W\subset X$, and the Freed--Witten condition \cite{FW99} for a brane on $W$ in the flux $H$ is $W_3(TW)+H|_W=0$ in $H^3(W;\ZZ)$ (for the spacetime $\RR^{1,3}\times X$, which is spin). A closed oriented three-manifold $W$ is spin, so $W_3(TW)=0$ and the condition is $H|_W=0$, that is $\int_WH=\omega(H,[W]^\vee)=0$. These are exactly the classes of $H_0^\perp$, and $K^{H,1}(X)=H_0^\perp/\ZZ H$ records in addition that the class of $m$ copies of the D3-brane on the cycle dual to $H_0$ vanishes while the class of a single copy has order $m$. The D-instanton and the D5-brane filling $X$ have no classes to wrap in degree $3$; this is consistent, since both would need the lost classes of $H^0$ and $H^6$ in a Type IIA frame reached by T-duality.
 
 \section{Three-manifolds and T-duality}\label{sec:three}
 
@@ -300,7 +410,7 @@ c_1(\widehat X)=\pi_*H\in H^2(B;\ZZ),\qquad\widehat\pi_*\widehat H=F,
 and the two fluxes agree on the correspondence space $X\times_B\widehat X$ after pull-back; such $\widehat H$ exists and is unique up to the ambiguity inherent in \eqref{eq:tdualdata}.
 
 \begin{theorem}[Bouwknegt--Evslin--Mathai \cite{BEM04a,BEM04b}]\label{thm:bem}
-With the notation above there is an isomorphism $K^{H,n}(X)\cong K^{\widehat H,n+1}(\widehat X)$, given by pulling back to $X\times_B\widehat X$, multiplying by the Poincar\'e class and pushing forward along $\widehat\pi$, and the same holds for the twisted cohomology.
+With the notation above there is an isomorphism $K^{H,n}(X)\cong K^{\widehat H,n+1}(\widehat X)$, given by pulling back to the correspondence space $X\times_B\widehat X$, on which the pull-backs of the two twists are isomorphic, composing with a chosen isomorphism between them (in the untwisted case this is the multiplication by the Poincar\'e line bundle), and pushing forward along the circle bundle $\widehat\pi$, which is K-oriented; the same holds for the twisted cohomology. The choice of isomorphism is part of the T-duality data.
 \end{theorem}
 
 The flux data in \eqref{eq:tdualdata} are essential. For the Hopf bundle $S^3\to S^2$ with $F$ the generator and $H=0$ the dual bundle is trivial, $\widehat X=S^2\times S^1$, with $\widehat H$ the generator of $H^3(S^2\times S^1;\ZZ)$. Then $K^0(S^3)\cong\ZZ$ matches $K^{\widehat H,1}(S^2\times S^1)\cong\ZZ$ by Theorem~\ref{thm:three} with $b_1=1$, $k=1$, whereas the untwisted group $K^1(S^2\times S^1)\cong\ZZ^2$ does not; a statement that T-duality exchanges the untwisted groups $K^0(X)$ and $K^1(\widehat X)$ for every circle bundle is false. At the level of $C^*$-algebras, the continuous-trace algebra of $(\widehat X,\widehat H)$ is the crossed product of that of $(X,H)$ by an action of $\RR$ lifting the circle action, and the isomorphism of Theorem~\ref{thm:bem} is Connes' Thom isomorphism, which is implemented by an invertible $\KK$-element \cite{MR05}; for torus bundles the dual is in general a bundle of noncommutative tori \cite{BHM04,MR05}.
@@ -366,7 +476,7 @@ A D$p$-brane wrapping a submanifold $\iota\colon W\hookrightarrow X$ with Chan--
 since $\iota^*TX=TW\oplus N$ and $\iota_*(\iota^*a\cdot b)=a\cdot\iota_*b$. The denominator is the Todd class of the normal bundle alone; a formula with $\Td(TW)/\Td(N)$ in place of $1/\Td(N)$ fails already for the identity embedding of $\CC P^1$, where it would give $\ch(E)=\ch(E)(1+h)$. For the hyperplane $\CC P^1\subset\CC P^2$ with $E$ trivial the Koszul resolution gives $\iota_!1=1-[\mathcal O(-1)]$, so $\ch(\iota_!1)=1-e^{-h}=h-\tfrac12h^2$, and \eqref{eq:grr} with $\Td(N)=\Td(\mathcal O(1))=1+\tfrac12h$ gives the same, $\iota_*(1-\tfrac12h)=h-\tfrac12h^2$; the incorrect formula gives $h+\tfrac12h^2$. The $-\tfrac12h^2$ is the D0-charge induced on a D2-brane wrapping the line, the gravitational correction to the Wess--Zumino coupling. The general spin$^c$ version of \eqref{eq:grr} replaces Todd classes by the $\Ahat$-genus and the determinant line of the spin$^c$ structure \cite{AS68}.
 
 \subsection{Thom isomorphism}
-For a complex vector bundle $V\to X$ of rank $r$ the class $\lambda_V=\sum_k(-1)^k[\Lambda^kV^*]\in K^0(D(V),S(V))$ is a Thom class, and $K^*(X)\to K^*(D(V),S(V))$, $a\mapsto\pi^*a\cdot\lambda_V$, is an isomorphism \cite{Ati67}; the same holds for spin$^c$ real bundles with the spinor Thom class. The push-forward $\iota_!$ is the composition of this isomorphism for $N$ with the map $K^*(D(N),S(N))\to K^*(X)$ induced by a tubular neighbourhood.
+For a complex vector bundle $V\to X$ of rank $r$ the exterior algebra $\Lambda^\bullet V^*$ pulled back to $V$, with the Koszul differential given by contraction with the tautological section, is exact away from the zero section, and so defines a class $\lambda_V=\sum_k(-1)^k[\Lambda^kV^*]$ in $K^0(D(V),S(V))$; it is a Thom class, and $K^*(X)\to K^*(D(V),S(V))$, $a\mapsto\pi^*a\cdot\lambda_V$, is an isomorphism \cite{Ati67}; the same holds for spin$^c$ real bundles with the spinor Thom class. The push-forward $\iota_!$ is the composition of this isomorphism for $N$ with the map $K^*(D(N),S(N))\to K^*(X)$ induced by a tubular neighbourhood.
 
 \subsection{Chern character and integrality}
 The Chern character is a ring isomorphism $K^0(X)\otimes\QQ\to H^{\mathrm{even}}(X;\QQ)$ and an isomorphism $K^1(X)\otimes\QQ\to H^{\mathrm{odd}}(X;\QQ)$ for finite CW complexes, with
@@ -377,24 +487,24 @@ for a bundle of rank $r$ with Chern classes $c_i$. The torsion of $K^*(X)$ is in
 \begin{equation}\label{eq:rr}
 G(x)=\ch(x)\,\sqrt{\Ahat(X)}\in H^*(X;\QQ)
 \end{equation}
-\cite{MM97,FH00}; with a B-field of curvature $B$ the Chern character is replaced by the twisted Chern character of $K^{H,*}(X)$ \cite{BM00}. The components of $G(x)$ are not integral classes in general: for $x=[\mathcal O(1)]$ on $\CC P^2$ one has $\sqrt{\Ahat}=1-\tfrac1{16}h^2$ and $G(x)=1+h+\tfrac7{16}h^2$. The quantization statement is therefore not that $[G]$ is integral but that $G$ lies in the image of $K^*(X)$ under \eqref{eq:rr}, which is a lattice of full rank in $H^*(X;\QQ)$ different from $H^*(X;\ZZ)$ \cite{FH00}.
+\cite{MM97,FH00}; with a B-field, a two-form potential whose curvature three-form represents the class $H$, the Chern character is replaced by the twisted Chern character of $K^{H,*}(X)$ \cite{BM00}; the differential refinement of this picture, with the torsion and the holonomies of the fields and with Calabi--Yau threefolds among the examples, is developed by Grady and Sati \cite{GS22}. The components of $G(x)$ are not integral classes in general: for $x=[\mathcal O(1)]$ on $\CC P^2$ one has $\sqrt{\Ahat}=1-\tfrac1{16}h^2$ and $G(x)=1+h+\tfrac7{16}h^2$. The quantization statement is therefore not that $[G]$ is integral but that $G$ lies in the image of $K^*(X)$ under \eqref{eq:rr}, which is a lattice of full rank in $H^*(X;\QQ)$ different from $H^*(X;\ZZ)$ \cite{FH00}.
 
 \subsection{Torsion charges without flux}
 Torsion in $K^*(X)$ also arises without flux. The simplest examples are in Type I, where the charges lie in real K-theory and $\widetilde{KO}(S^{9-p})=KO^{-(9-p)}(\mathrm{pt})$ is $\ZZ/2$ for $p=-1,0,7,8$ \cite{Wit98}; the non-BPS D0-brane of Type I with its $\ZZ/2$ charge is the standard example \cite{Sen98,Wit98}. In Type IIB on a flat space $\RR^8\times S^1$ there is no torsion charge, since $K^1(S^1)\cong\ZZ$ is torsion-free; torsion charges in Type II require either flux, as in Theorems~\ref{thm:six} and~\ref{thm:three}, or torsion in the cohomology of $X$, as for the lens spaces of Table~\ref{tab:three}.
 
 \section{Conclusion}\label{sec:conclusion}
 
-The twisted K-groups of a simply connected six-manifold with torsion-free cohomology are $K^{H,0}\cong\ZZ^{2b_2}\oplus\ZZ/m$ and $K^{H,1}\cong\ZZ^{b_3-2}\oplus\ZZ/m$, where $m$ is the divisibility of the flux; for a Calabi--Yau threefold the ranks are $2h^{1,1}$ and $2h^{2,1}$. The flux removes the D0- and D6-charges and two D3-charges, and leaves a D0-brane and a D3-brane of order $m$. Three-manifolds behave in the same way, with $K^{H,0}\cong H^2$ and $K^{H,1}\cong H^1\oplus\ZZ/k$, and the groups of circle bundles over surfaces satisfy the exchange predicted by T-duality. Two questions are left open: the extension problem of Remark~\ref{rem:torsion} when $H_2(X;\ZZ)$ has torsion, and the groups of non-simply connected Calabi--Yau threefolds, where $H^1$ and $H^5$ can be nonzero, the differential $d_3$ has more components and $d_5$ can act.
+The twisted K-groups of a closed spin$^c$ six-manifold with $H_1=0$ have torsion $C_H=\Tor(H^3/\ZZ H)$ in odd degree and $C_H^\vee$ in even degree, with ranks $b_3-2$ and $2b_2$ for a flux of infinite order; when the cohomology is torsion-free both are $\ZZ/m$, $m$ the divisibility of the flux, and for a Calabi--Yau threefold the ranks are $2h^{2,1}$ and $2h^{1,1}$. The flux removes the D0- and D6-charges and two D3-charges and leaves a D0-charge and a D3-charge of order $m$. When $H^3$ has torsion the torsion component of the flux enters $C_H$, and the manifolds $X_n$ show that fluxes of the same free divisibility can have different charge groups. Three-manifolds behave in the same way, with $K^{H,0}\cong H^2$ and $K^{H,1}\cong H^1\oplus\ZZ/k$, and the groups of circle bundles over surfaces satisfy the exchange predicted by T-duality. Left open are the groups when $H_1(X;\ZZ)\neq0$, where $H^1$ and $H^5$ can be nonzero, $d_3$ has more components and $d_5$ can act; the $K^0(X)$-module structure and the filtration of $K^{H,0}(X)$ beyond the abstract group; and Calabi--Yau examples with torsion in $H^3$, since the manifolds $X_n$ are not K\"ahler.
 
 \section*{Data availability}
-The script \texttt{twisted\_k.py} computes every group and identity of this paper from the Betti numbers, torsion and cup products of the spaces, using exact integer and rational arithmetic and Smith normal forms, and runs $31$ checks; it is archived with the LaTeX source of this paper. The computations were set up and run in Python with the assistance of Claude Code.
+The script \texttt{twisted\_k.py} computes every group and identity of this paper from the Betti numbers, torsion and cup products of the spaces, using exact integer and rational arithmetic and Smith normal forms, and runs $45$ checks; it is archived with the LaTeX source of this paper. The computations were set up and run in Python with the assistance of Claude Code.
 
 \section*{Conflicts of interest}
 The authors declare no competing interests.
 
 \appendix
 \section{The script}\label{app:code}
-\texttt{twisted\_k.py} requires Python~3 and SymPy. It computes: the untwisted groups of Table~\ref{tab:kgroups} from the Betti numbers and the K\"unneth theorem; the reduced K-theory of spheres; the Chern character \eqref{eq:ch} of a rank-four bundle on $\CC P^2$; both sides of \eqref{eq:grr} for $\CC P^1\subset\CC P^2$ in $\QQ[h]/(h^3)$ and the failure of the formula with $\Td(TW)/\Td(N)$; the field \eqref{eq:rr} of $\mathcal O(1)$ on $\CC P^2$; the groups of Theorem~\ref{thm:three} for the manifolds of Table~\ref{tab:three}; the exchange of Proposition~\ref{prop:tdualcheck} for $g\le2$ and $0\le e,k\le5$; the groups of Theorem~\ref{thm:six} for the quintic, the bicubic and the Schoen manifold with $m\le3$, with the cokernel and the kernel quotient of Lemma~\ref{lem:lattice} obtained from a unimodular change of basis rather than from the lemma, including a primitive flux with two nonzero coordinates and a flux of divisibility two; and the Type I table of $KO^{-n}(\mathrm{pt})$.
+\texttt{twisted\_k.py} requires Python~3 and SymPy. It computes: the untwisted groups of Table~\ref{tab:kgroups} from the Betti numbers and the K\"unneth theorem; the reduced K-theory of spheres; the Chern character \eqref{eq:ch} of a rank-four bundle on $\CC P^2$; both sides of \eqref{eq:grr} for $\CC P^1\subset\CC P^2$ in $\QQ[h]/(h^3)$ and the failure of the formula with $\Td(TW)/\Td(N)$; the field \eqref{eq:rr} of $\mathcal O(1)$ on $\CC P^2$; the groups of Theorem~\ref{thm:three} for the manifolds of Table~\ref{tab:three}; the exchange of Proposition~\ref{prop:tdualcheck} for $g\le2$ and $0\le e,k\le5$; the groups of Theorem~\ref{thm:six} for the quintic, the bicubic and the Schoen manifold with $m\le3$, with the cokernel and the kernel quotient of Lemma~\ref{lem:lattice} obtained from a unimodular change of basis rather than from the lemma, including a primitive flux with two nonzero coordinates and a flux of divisibility two; the groups of Theorem~\ref{thm:six} with torsion in $H^3$, where $\ker f_H/\ZZ H$ is computed from the lattice and compared with the presentation \eqref{eq:presentation} for $T=\ZZ/2\oplus\ZZ/4$, $\ZZ/2\oplus\ZZ/2\oplus\ZZ/4$, $\ZZ/3\oplus\ZZ/3$ and $\ZZ/2\oplus\ZZ/3\oplus\ZZ/4$, the cyclic formula of Proposition~\ref{prop:presentation} and its splitting criterion for $m\le6$, $n\le8$ and all $t$, the groups of $X_n$ in Corollary~\ref{cor:realized}, and the torsion and zero twists; and the Type I table of $KO^{-n}(\mathrm{pt})$.
 
 {\raggedright
 \begin{thebibliography}{99}
@@ -475,11 +585,23 @@ P.~Bouwknegt, K.~Hannabuss and V.~Mathai,
 J.\ High Energy Phys.\ \textbf{03} (2004), 018.
 \doi{10.1088/1126-6708/2004/03/018}
 
+\bibitem{CE07}
+A.~Collinucci and J.~Evslin,
+\emph{Twisted homology},
+J.\ High Energy Phys.\ \textbf{03} (2007), 058.
+\doi{10.1088/1126-6708/2007/03/058}
+
 \bibitem{DK70}
 P.~Donovan and M.~Karoubi,
 \emph{Graded Brauer groups and K-theory with local coefficients},
 Publ.\ Math.\ Inst.\ Hautes \'Etudes Sci.\ \textbf{38} (1970), 5--25.
 \doi{10.1007/BF02684650}
+
+\bibitem{DM07}
+C.\,F.~Doran and J.\,W.~Morgan,
+\emph{Algebraic topology of Calabi--Yau threefolds in toric varieties},
+Geom.\ Topol.\ \textbf{11} (2007), 597--642.
+\doi{10.2140/gt.2007.11.597}
 
 \bibitem{FH00}
 D.\,S.~Freed and M.\,J.~Hopkins,
@@ -492,6 +614,12 @@ D.\,S.~Freed and E.~Witten,
 \emph{Anomalies in string theory with D-branes},
 Asian J.\ Math.\ \textbf{3} (1999), no.~4, 819--852.
 \doi{10.4310/AJM.1999.v3.n4.a6}
+
+\bibitem{GS22}
+D.~Grady and H.~Sati,
+\emph{Ramond--Ramond fields and twisted differential K-theory},
+Adv.\ Theor.\ Math.\ Phys.\ \textbf{26} (2022), 1097--1155.
+\doi{10.4310/ATMP.2022.v26.n5.a2}
 
 \bibitem{Kap00}
 A.~Kapustin,
@@ -529,11 +657,23 @@ J.~Rosenberg,
 J.\ Austral.\ Math.\ Soc.\ Ser.\ A \textbf{47} (1989), 368--381.
 \doi{10.1017/S1446788700033097}
 
+\bibitem{RS87}
+J.~Rosenberg and C.~Schochet,
+\emph{The K\"unneth theorem and the universal coefficient theorem for Kasparov's generalized K-functor},
+Duke Math.\ J.\ \textbf{55} (1987), 431--474.
+\doi{10.1215/S0012-7094-87-05524-4}
+
 \bibitem{Sen98}
 A.~Sen,
 \emph{Stable non-BPS states in string theory},
 J.\ High Energy Phys.\ \textbf{06} (1998), 007.
 \doi{10.1088/1126-6708/1998/06/007}
+
+\bibitem{Tu09}
+J.-L.~Tu,
+\emph{Twisted K-theory and Poincar\'e duality},
+Trans.\ Amer.\ Math.\ Soc.\ \textbf{361} (2009), 1269--1278.
+\doi{10.1090/S0002-9947-08-04706-5}
 
 \bibitem{Wit98}
 E.~Witten,

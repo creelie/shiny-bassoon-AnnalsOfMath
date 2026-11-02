@@ -21,12 +21,12 @@ python3 twisted_k.py
 ```
 
 The script computes, from the cohomology data alone, the untwisted K-groups of
-Table 1, the twisted K-groups of the closed 3-manifolds and of the simply
-connected 6-manifolds of Theorems 1.1 and 1.2 (quintic, bicubic and Schoen
-threefolds among the examples), the T-duality exchange of Proposition 5.2 for
+Table 1, the twisted K-groups of the closed 3-manifolds and of the
+spin-c 6-manifolds with H_1 = 0 of Theorems 1.1 and 1.2, torsion in H^3 included (quintic, bicubic and Schoen
+threefolds and the surgery manifolds X_n among the examples), the T-duality exchange of Proposition 5.2 for
 circle bundles over surfaces, and the Grothendieck–Riemann–Roch and
 Ramond–Ramond integrality identities of Section 6. It ends with
-`31 checks passed, 0 failed`. Requires Python 3 and sympy.
+`45 checks passed, 0 failed`. Requires Python 3 and sympy.
 
 ## Building the paper
 
