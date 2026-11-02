@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this archive, please cite it as below."
+title: "LaTeX source and verification code for the paper Torsion D-Brane Charges from H-Flux on Calabi-Yau Threefolds"
+type: software
+authors:
+  - family-names: Bhattacharjee
+    given-names: Deep
+    orcid: "https://orcid.org/0000-0003-0466-750X"
+  - family-names: Bhattacharya
+    given-names: Ushashi
+    orcid: "https://orcid.org/0009-0002-2254-3914"
+repository-code: "https://github.com/creelie/shiny-bassoon-AnnalsOfMath"
+license: MIT
+version: 1.0.0
+date-released: 2026-11-02

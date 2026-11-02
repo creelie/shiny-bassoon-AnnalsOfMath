@@ -1,0 +1,12 @@
+{
+  "title": "LaTeX source and verification code for the paper Torsion D-Brane Charges from H-Flux on Calabi-Yau Threefolds",
+  "upload_type": "software",
+  "description": "LaTeX source (tex/main.tex, main.pdf) and the exact verification script (code/twisted_k.py, with its output code/results.json) of the paper Torsion D-Brane Charges from H-Flux on Calabi-Yau Threefolds. The script computes the twisted K-groups of closed 3-manifolds and of simply connected torsion-free 6-manifolds with H-flux, the T-duality exchange for circle bundles over surfaces, and the Grothendieck-Riemann-Roch identities of the paper, by Smith normal forms in exact arithmetic (31 checks).",
+  "creators": [
+    {"name": "Bhattacharjee, Deep", "affiliation": "Electro Gravitational Space Propulsion Laboratory; formerly University of Calcutta (Heramba Chandra College), Kolkata, India", "orcid": "0000-0003-0466-750X"},
+    {"name": "Bhattacharya, Ushashi", "affiliation": "National Taiwan University, Taipei", "orcid": "0009-0002-2254-3914"}
+  ],
+  "keywords": ["twisted K-theory", "D-brane charges", "H-flux", "Calabi-Yau threefolds", "T-duality", "Atiyah-Hirzebruch spectral sequence"],
+  "license": "MIT",
+  "access_right": "open"
+}
