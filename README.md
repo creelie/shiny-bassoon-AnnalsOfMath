@@ -35,6 +35,14 @@ cd tex
 pdflatex main.tex && pdflatex main.tex
 ```
 
+## Archive
+
+| Release | DOI |
+| --- | --- |
+| v1.0.0 | [10.5281/zenodo.23898720](https://doi.org/10.5281/zenodo.23898720) |
+
+Concept DOI of all versions: [10.5281/zenodo.23898719](https://doi.org/10.5281/zenodo.23898719).
+
 ## Contact
 
 Deep Bhattacharjee, egspl@proton.me
