@@ -12,6 +12,7 @@ from fractions import Fraction as F
 from itertools import product
 from math import comb, gcd
 import json
+import math
 
 from sympy import Matrix, ZZ
 from sympy.matrices.normalforms import smith_normal_form
@@ -359,6 +360,100 @@ check("quintic, H=(3,5,0,...): K^0 = Z^2, K^1 = Z^202", k0 == (2, []) and k1 == 
 Hvec = [6, 10, 4] + [0] * 201  # = 2 (3,5,2), divisibility 2
 k0, k1, _ = twisted_k_6manifold(1, 204, om, Hvec)
 check("quintic, H=2(3,5,2,0,...): K^0 = Z^2+Z/2, K^1 = Z^202+Z/2", k0 == (2, [2]) and k1 == (202, [2]))
+
+
+# ----------------------------------------------------------------------
+# 6b. Torsion in H^3: C_H = Tor(H^3 / Z H) and the surgery manifolds X_n
+# ----------------------------------------------------------------------
+print("\n6b. Six-manifolds with torsion in H^3 (Theorem 1.1 in general, the presentation of C_H and the surgery manifolds X_n)")
+
+
+def C_H_presentation(m, tors, t):
+    """Tor(H^3/ZH) from the presentation of C_H in the paper: generators
+    u, c_1..c_r; relations m u + sum t_j c_j = 0 and n_j c_j = 0."""
+    r = len(tors)
+    rels = [[m] + list(t)] + [[0] + [tors[j] if i == j else 0 for i in range(r)] for j in range(r)]
+    return group_from_relations(1 + r, rels)
+
+
+def twisted_k_6manifold_general(b2, b3, omega, Hfree, tors, Htors):
+    """X closed spin^c six-manifold with H_1 = 0; H^3 = Z^b3 (+) T,
+    T = (+) Z/n_j (tors), H = (Hfree, Htors).  Returns K^{H,0}, K^{H,1}
+    as (rank, torsion) by Theorem 1.1: K^1 = ker f_H / Z H computed
+    directly from the lattice, torsion of K^0 = character group of the
+    torsion of K^1 (same invariant factors), ranks 2+2b2-2d and b3-2d."""
+    r = len(tors)
+    tors_rels = lambda off: [[0] * off + [tors[j] if i == j else 0 for i in range(r)] for j in range(r)]
+    if all(h == 0 for h in Hfree):             # torsion twist: f_H = 0, K^1 = H^3 / <H>
+        rels = [[0] * b3 + list(Htors)] + tors_rels(b3)
+        k1 = group_from_relations(b3 + r, rels)
+        delta = 0
+    else:
+        H = Matrix(Hfree)
+        functional = (H.T * Matrix(omega))
+        S, U = _smith_with_transform(functional)
+        Hnew = U.inv() * H
+        assert Hnew[0] == 0                      # H lies in ker f_H
+        rels = [[int(Hnew[i]) for i in range(1, b3)] + list(Htors)] + tors_rels(b3 - 1)
+        k1 = group_from_relations(b3 - 1 + r, rels)
+        delta = 1
+    k0 = (2 + 2 * b2 - 2 * delta, k1[1])
+    return k0, k1
+
+
+# (a) the cyclic formula Z/g + Z/(mn/g), g = gcd(m,n,t), and the splitting criterion
+ok_formula, ok_split, ok_order = True, True, True
+for m in range(1, 7):
+    for n in range(1, 9):
+        for t in range(n):
+            g = gcd(gcd(m, n), t)
+            C = C_H_presentation(m, [n], [t])
+            expected = sorted(d for d in (g, m * n // g) if d > 1)
+            ok_formula &= C == (0, expected)
+            ok_order &= (lambda rk, tt: rk == 0 and math.prod(tt) == m * n)(*C)
+            # splits iff C = Z/n + Z/m up to the invariant factors of that direct sum
+            split = group_from_relations(2, [[m, 0], [0, n]])
+            ok_split &= (C == split) == (t % gcd(m, n) == 0)
+check("C_H = Z/g + Z/(mn/g), g = gcd(m,n,t), for m<=6, n<=8, all t", ok_formula)
+check("|C_H| = m n for T = Z/n", ok_order)
+check("0 -> T -> C_H -> Z/m -> 0 splits iff gcd(m,n) | t", ok_split)
+
+# (b) the surgery manifolds X_n: b2 = 0, b3 = 2, H^3 = Z a + Z b + Z/n c, H = m a + t c
+om2 = [[0, 1], [-1, 0]]
+surgery_examples = [((2, 2, 0), [2, 2]), ((2, 2, 1), [4]), ((2, 4, 0), [2, 4]),
+                    ((2, 4, 1), [8]), ((3, 6, 3), [3, 6]), ((4, 8, 2), [2, 16])]
+for (m, n, t), expected in surgery_examples:
+    k0, k1 = twisted_k_6manifold_general(0, 2, om2, [m, 0], [n], [t])
+    print(f"  X_{n}, H = {m}a + {t}c: K^0 = {fmt(k0):<12} K^1 = {fmt(k1)}")
+    RESULTS.setdefault("surgery_manifolds", []).append([n, m, t, fmt(k0), fmt(k1)])
+    check(f"X_{n}, H={m}a+{t}c: both groups finite with invariant factors {expected}",
+          k0 == (0, expected) and k1 == (0, expected))
+check("X_2: fluxes 2a and 2a+c give Z/2+Z/2 and Z/4",
+      twisted_k_6manifold_general(0, 2, om2, [2, 0], [2], [0])[1] == (0, [2, 2]) and
+      twisted_k_6manifold_general(0, 2, om2, [2, 0], [2], [1])[1] == (0, [4]))
+
+# (c) the lattice computation agrees with the presentation for non-cyclic T and a
+#     flux with several nonzero free coordinates (quintic numbers with torsion added)
+om = symplectic_form(8)
+agree = True
+for tors in ([2, 4], [2, 2, 4], [3, 3], [2, 3, 4]):
+    for Hfree, m in (([2, 0, 0, 0, 0, 0, 0, 0], 2), ([6, 10, 4, 0, 0, 0, 0, 0], 2), ([3, 6, 0, 9, 0, 0, 0, 0], 3)):
+        for Ht in ([0] * len(tors), [1] * len(tors), [tors[j] - 1 for j in range(len(tors))]):
+            k0, k1 = twisted_k_6manifold_general(3, 8, om, Hfree, tors, Ht)
+            C = C_H_presentation(m, tors, Ht)
+            agree &= k1 == (8 - 2, C[1]) and k0 == (2 + 6 - 2, C[1])
+            agree &= math.prod(C[1]) == m * math.prod(tors)
+check("lattice computation = presentation of C_H for T in {Z/2+Z/4, Z/2+Z/2+Z/4, Z/3+Z/3, Z/2+Z/3+Z/4}", agree)
+
+# (d) torsion twist and no twist: K^1 = Z^b3 + T/<H>, K^0 = Z^(2+2b2) + (T/<H>)^v
+k0, k1 = twisted_k_6manifold_general(3, 8, om, [0] * 8, [2, 4], [0, 0])
+check("H = 0 with T = Z/2+Z/4: K^0 = Z^8 + Z/2 + Z/4, K^1 = Z^8 + Z/2 + Z/4", k0 == (8, [2, 4]) and k1 == (8, [2, 4]))
+k0, k1 = twisted_k_6manifold_general(3, 8, om, [0] * 8, [2, 4], [0, 2])
+check("torsion twist H = (0,2) in Z/2+Z/4: K^1 = Z^8 + Z/2 + Z/2", k1 == (8, [2, 2]) and k0 == (8, [2, 2]))
+# the torsion-free function and the general one agree on the quintic
+k0a, k1a, _ = twisted_k_6manifold(1, 204, symplectic_form(204), [6, 10, 4] + [0] * 201)
+k0b, k1b = twisted_k_6manifold_general(1, 204, symplectic_form(204), [6, 10, 4] + [0] * 201, [], [])
+check("general and torsion-free computations agree on the quintic with H = 2(3,5,2,0,...)", (k0a, k1a) == (k0b, k1b))
 
 
 # ----------------------------------------------------------------------
