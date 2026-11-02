@@ -11,5 +11,12 @@ authors:
     orcid: "https://orcid.org/0009-0002-2254-3914"
 repository-code: "https://github.com/creelie/shiny-bassoon-AnnalsOfMath"
 license: MIT
-version: 1.0.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23898719
+    description: "Concept DOI of all versions"
+  - type: doi
+    value: 10.5281/zenodo.23898720
+    description: "Version 1.0.0"
+version: 1.0.1
 date-released: 2026-11-02
